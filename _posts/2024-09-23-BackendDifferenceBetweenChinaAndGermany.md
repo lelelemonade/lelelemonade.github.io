@@ -77,5 +77,12 @@ In China, salaries are mostly based on your previous job’s salary (background 
 ### Germany
 In Germany, salaries are more closely tied to years of experience. Recruiters prepare salary ranges based on experience levels and budget the positions accordingly, then use that as a filter for candidates.
 
+## 2.6. Attitude towards Junior
+### China
+In China, Junior engineer are more welcomed than senior. This is primarily because their salaries are lower, and they tend to be more willing to obey to leader and overwork.
+
+### Germany
+In Germany, senior engineers seem to be in higher demand. I’ve noticed this based on the number of open positions for senior roles. However, I am not quite sure actually, maybe it's not graduation season.
+
 # 3. Conclusion
 This article is based on my personal experience. If it doesn’t apply to your situation, feel free to comment or reach out to me!
