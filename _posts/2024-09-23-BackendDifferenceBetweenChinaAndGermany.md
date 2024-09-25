@@ -84,5 +84,12 @@ In China, Junior engineer are more welcomed than senior. This is primarily becau
 ### Germany
 In Germany, senior engineers seem to be in higher demand. I’ve noticed this based on the number of open positions for senior roles. However, I am not quite sure actually, maybe it's not graduation season.
 
+## 2.7. Chat vs. Cover Letter
+### China
+In China, once candidates was selected to proceed, recruiter will connect candidates throught WeChat. Then discuss motivation, experience, achievements and more. The communication will last through whole hiring process.
+
+### Germany
+In Germany, you should include all your motivation, skills, and fit in the cover letter and attach it to your application.
+
 # 3. Conclusion
 This article is based on my personal experience. If it doesn’t apply to your situation, feel free to comment or reach out to me!
