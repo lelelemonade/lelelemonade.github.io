@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import HeroSection from '../components/HeroSection';
 import ContactSection from '../components/ContactSection';
 import AnimatedCard from '../components/AnimatedCard';
+import SkillChip from '../components/SkillChip';
 import { getBlogPosts, getNewsPosts } from '../utils/markdownLoader';
 
 export default function HomePage() {
@@ -40,10 +41,11 @@ export default function HomePage() {
   }, []);
 
   const skills = [
-    { name: 'Web Development', level: 90 },
-    { name: 'UI/UX Design', level: 85 },
-    { name: 'Mobile Development', level: 75 },
-    { name: 'Data Science', level: 70 },
+    'Java', 'Golang', 'Kotlin', 'Spring Boot', 'AWS', 'PostgreSQL', 
+    'MySQL', 'Cassandra', 'Redis', 'Kubernetes', 'Docker', 'Kafka', 
+    'RabbitMQ', 'Restful', 'gRPC', 'GraphQL', 'Prometheus', 'Grafana', 
+    'Kibana', 'ShardingSphere', 'Junit', 'Github Action', 'JavaScript', 
+    'React', 'Python', 'Rust', 'Linux', 'Agile'
   ];
 
   return (
@@ -107,38 +109,19 @@ export default function HomePage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                <Typography variant="h6" gutterBottom>My Skills</Typography>
-                {skills.map((skill, index) => (
-                  <Box key={skill.name} sx={{ mb: 2 }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                      <Typography variant="body2">{skill.name}</Typography>
-                      <Typography variant="body2">{skill.level}%</Typography>
-                    </Box>
-                    <Box
-                      sx={{
-                        height: 8,
-                        borderRadius: 4,
-                        bgcolor: 'background.paper',
-                        position: 'relative',
-                        overflow: 'hidden',
-                      }}
+                <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>My Skills</Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                  {skills.map((skill, index) => (
+                    <motion.div
+                      key={skill}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: 0.1 + index * 0.03 }}
                     >
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${skill.level}%` }}
-                        transition={{ duration: 1, delay: 0.4 + index * 0.1 }}
-                        style={{
-                          height: '100%',
-                          borderRadius: 4,
-                          background: 'linear-gradient(90deg, #3a7bd5, #00d2ff)',
-                          position: 'absolute',
-                          left: 0,
-                          top: 0,
-                        }}
-                      />
-                    </Box>
-                  </Box>
-                ))}
+                      <SkillChip skill={skill} />
+                    </motion.div>
+                  ))}
+                </Box>
               </motion.div>
             </Grid>
           </Grid>
