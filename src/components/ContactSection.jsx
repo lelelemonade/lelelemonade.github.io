@@ -80,7 +80,7 @@ export default function ContactSection() {
             id="contact"
             sx={{
                 py: 8,
-                background: theme => mode === 'dark'
+                background: mode === 'dark'
                     ? 'linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%)'
                     : 'linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)',
                 borderRadius: 4,

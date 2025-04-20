@@ -73,28 +73,28 @@ export default function MarkdownRenderer({ content, frontmatter = true }) {
           rehypePlugins={[rehypeRaw]}
           remarkPlugins={[remarkGfm]}
           components={{
-            h1: ({ node, ...props }) => (
+            h1: (props) => (
               <Typography variant="h1" gutterBottom {...props} sx={{ mt: 3, mb: 2 }} />
             ),
-            h2: ({ node, ...props }) => (
+            h2: (props) => (
               <Typography variant="h2" gutterBottom {...props} sx={{ mt: 3, mb: 2 }} />
             ),
-            h3: ({ node, ...props }) => (
+            h3: (props) => (
               <Typography variant="h3" gutterBottom {...props} sx={{ mt: 3, mb: 2 }} />
             ),
-            h4: ({ node, ...props }) => (
+            h4: (props) => (
               <Typography variant="h4" gutterBottom {...props} sx={{ mt: 2, mb: 1 }} />
             ),
-            h5: ({ node, ...props }) => (
+            h5: (props) => (
               <Typography variant="h5" gutterBottom {...props} sx={{ mt: 2, mb: 1 }} />
             ),
-            h6: ({ node, ...props }) => (
+            h6: (props) => (
               <Typography variant="h6" gutterBottom {...props} sx={{ mt: 2, mb: 1 }} />
             ),
-            p: ({ node, ...props }) => (
+            p: (props) => (
               <Typography variant="body1" paragraph {...props} sx={{ mb: 2 }} />
             ),
-            code({ node, inline, className, children, ...props }) {
+            code({ inline, className, children, ...props }) {
               const match = /language-(\w+)/.exec(className || '');
               return !inline && match ? (
                 <SyntaxHighlighter

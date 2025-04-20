@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Box, IconButton, Tooltip } from '@mui/material';
 import { VolumeUp as VolumeUpIcon } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -7,7 +7,6 @@ const AudioPlayer = ({ audioFile, tooltipText }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioContext, setAudioContext] = useState(null);
   const [analyser, setAnalyser] = useState(null);
-  const [audioSource, setAudioSource] = useState(null);
   const [animationFrameId, setAnimationFrameId] = useState(null);
   
   const audioRef = useRef(null);
@@ -41,8 +40,6 @@ const AudioPlayer = ({ audioFile, tooltipText }) => {
       const source = newAudioContext.createMediaElementSource(audioRef.current);
       source.connect(newAnalyser);
       newAnalyser.connect(newAudioContext.destination);
-      
-      setAudioSource(source);
     }
   };
   

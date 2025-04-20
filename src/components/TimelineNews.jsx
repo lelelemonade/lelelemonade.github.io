@@ -103,7 +103,7 @@ export default function TimelineNews({ posts }) {
   );
 }
 
-function TimelineItem({ post, index, isExpanded, onToggle, formatDate, isMobile, totalPosts }) {
+function TimelineItem({ post, index, isExpanded, onToggle, formatDate, isMobile }) {
   const theme = useTheme();
   const itemRef = useRef(null);
   const contentRef = useRef(null);
@@ -120,9 +120,6 @@ function TimelineItem({ post, index, isExpanded, onToggle, formatDate, isMobile,
     top: `${dotOffsetY}px`,
     zIndex: 5
   };
-
-  // Keep track of the content height to prevent layout shifts
-  const [contentHeight, setContentHeight] = useState(0);
   
   useEffect(() => {
     if (contentRef.current) {

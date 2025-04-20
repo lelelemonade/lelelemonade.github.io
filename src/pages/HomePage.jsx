@@ -15,7 +15,6 @@ import HeroSection from '../components/HeroSection';
 import ContactSection from '../components/ContactSection';
 import AnimatedCard from '../components/AnimatedCard';
 import SkillChip from '../components/SkillChip';
-import FeatureCard from '../components/FeatureCard';
 import { getBlogPosts, getNewsPosts } from '../utils/markdownLoader';
 import { 
   Code as CodeIcon, 

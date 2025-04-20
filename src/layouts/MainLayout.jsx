@@ -42,7 +42,6 @@ export default function MainLayout() {
   const [scrolled, setScrolled] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const location = useLocation();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   // Handle scroll events
   useEffect(() => {

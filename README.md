@@ -1,12 +1,63 @@
-# React + Vite
+# Personal Website of ZhongLi
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is my personal website built with React and Material UI. It features a responsive design with automatic dark/light theme switching based on system preferences.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Responsive design for all device sizes
+- Automatic dark/light theme switching based on system preferences
+- Manual theme toggle option
+- Blog and news sections
+- Smooth animations and transitions
 
-## Expanding the ESLint configuration
+## Build Process
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Development
+
+1. Clone the repository
+   ```
+   git clone https://github.com/lelelemonade/lelelemonade.github.io.git
+   cd lelelemonade.github.io
+   ```
+
+2. Install dependencies
+   ```
+   npm install
+   ```
+
+3. Start the development server
+   ```
+   npm run dev
+   ```
+
+4. Open your browser and navigate to `http://localhost:5173`
+
+### Building for Production
+
+1. Build the project
+   ```
+   npm run build
+   ```
+
+2. The build output will be in the `dist` folder, which can be deployed to any static hosting service like GitHub Pages.
+
+## Deployment
+
+This website is automatically deployed to GitHub Pages when changes are pushed to the main branch.
+
+## Technologies Used
+
+- React
+- React Router
+- Material UI
+- Framer Motion for animations
+- Vite for build tooling
+
+## License
+
+This project is personal and all rights are reserved.
