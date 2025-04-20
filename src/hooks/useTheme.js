@@ -2,10 +2,51 @@ import { useState, useEffect, useMemo } from 'react';
 import { createTheme } from '@mui/material/styles';
 
 export function useTheme() {
+  // Function to detect system preference
+  const getSystemPreference = () => {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
+  };
+
+  // Initialize theme mode from localStorage or system preference
   const [mode, setMode] = useState(() => {
     const savedMode = localStorage.getItem('theme-mode');
-    return savedMode || 'dark';
+    // If user has explicitly set a preference, use that
+    // Otherwise, use system preference
+    return savedMode || getSystemPreference();
   });
+
+  // Listen for changes in system color scheme preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    const handleChange = (e) => {
+      // Only update if user hasn't set a manual preference
+      if (!localStorage.getItem('theme-mode')) {
+        setMode(e.matches ? 'dark' : 'light');
+      }
+    };
+
+    // Add listener for system preference changes
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleChange);
+    } else {
+      // Fallback for older browsers
+      mediaQuery.addListener(handleChange);
+    }
+
+    // Cleanup
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener('change', handleChange);
+      } else {
+        // Fallback for older browsers
+        mediaQuery.removeListener(handleChange);
+      }
+    };
+  }, []);
 
   const toggleTheme = () => {
     setMode((prevMode) => {
