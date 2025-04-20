@@ -3,8 +3,6 @@ layout: post
 title: Backend difference between China and Germany
 date: 2024-09-22 20:09:16
 description: Backend Technical and interview difference between China and Germany.
-tags: backend interview
-categories: thoughts
 ---
 
 I have 4 years of backend experience in China, and I recently moved to Germany. I’d like to share some differences I’ve noticed between backend development in China and Germany.
