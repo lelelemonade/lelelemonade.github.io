@@ -4,6 +4,9 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: write  # Added explicit write permissions
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -22,6 +25,9 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Create .nojekyll file
+        run: touch dist/.nojekyll
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
