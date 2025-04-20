@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowForward as ArrowForwardIcon } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import avatarImage from '../assets/images/me.jpg';
+import AudioPlayer from './AudioPlayer';
 
 export default function HeroSection() {
   return (
@@ -32,15 +33,22 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Typography
-                component="h1"
-                variant="h2"
-                color="white"
-                fontWeight="bold"
-                gutterBottom
-              >
-                Hello, I'm ZhongLi Shen
-              </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                <Typography
+                  component="h1"
+                  variant="h2"
+                  color="white"
+                  fontWeight="bold"
+                  gutterBottom
+                  sx={{ mr: 1 }}
+                >
+                  Hello, I'm ZhongLi Shen(沈仲黎)
+                </Typography>
+                <AudioPlayer 
+                  audioFile="/assets/audio/myname.wav" 
+                  tooltipText="Hear how to pronounce my name"
+                />
+              </Box>
             </motion.div>
             
             <motion.div
