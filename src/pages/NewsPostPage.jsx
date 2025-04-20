@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { 
   Box, 
   Typography, 
   Container, 
-  Breadcrumbs, 
-  Chip,
-  CircularProgress,
+  Paper, 
+  Breadcrumbs,
+  Link,
   Button,
-  Paper
+  CircularProgress,
+  Chip
 } from '@mui/material';
 import { 
   NavigateNext as NavigateNextIcon,
-  CalendarToday as CalendarIcon,
-  ArrowBack as ArrowBackIcon
+  ArrowBack as ArrowBackIcon,
+  CalendarToday as CalendarIcon
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import MarkdownRenderer from '../components/MarkdownRenderer';
@@ -21,6 +22,7 @@ import { getNewsPosts } from '../utils/markdownLoader';
 
 export default function NewsPostPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -28,18 +30,16 @@ export default function NewsPostPage() {
   useEffect(() => {
     async function fetchPost() {
       try {
-        setLoading(true);
         const allPosts = await getNewsPosts();
-        const currentPost = allPosts.find(post => post.id === id);
+        const foundPost = allPosts.find(p => p.id === id);
         
-        if (!currentPost) {
+        if (foundPost) {
+          setPost(foundPost);
+        } else {
           setError('News post not found');
-          return;
         }
-        
-        setPost(currentPost);
-      } catch (error) {
-        console.error('Error loading news post:', error);
+      } catch (err) {
+        console.error('Error loading news post:', err);
         setError('Failed to load news post');
       } finally {
         setLoading(false);
@@ -49,9 +49,14 @@ export default function NewsPostPage() {
     fetchPost();
   }, [id]);
 
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   if (loading) {
     return (
-      <Container maxWidth="lg" sx={{ py: 4, textAlign: 'center' }}>
+      <Container maxWidth="md" sx={{ py: 8, textAlign: 'center' }}>
         <CircularProgress />
       </Container>
     );
@@ -59,15 +64,14 @@ export default function NewsPostPage() {
 
   if (error || !post) {
     return (
-      <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Container maxWidth="md" sx={{ py: 8 }}>
         <Typography variant="h4" color="error" gutterBottom>
           {error || 'News post not found'}
         </Typography>
         <Button 
-          component={Link} 
-          to="/news" 
+          variant="contained" 
           startIcon={<ArrowBackIcon />}
-          variant="contained"
+          onClick={() => navigate('/news')}
         >
           Back to News
         </Button>
@@ -76,77 +80,86 @@ export default function NewsPostPage() {
   }
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="md">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Breadcrumbs 
-          separator={<NavigateNextIcon fontSize="small" />} 
-          aria-label="breadcrumb"
-          sx={{ mb: 3 }}
-        >
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-            Home
-          </Link>
-          <Link to="/news" style={{ textDecoration: 'none', color: 'inherit' }}>
-            News
-          </Link>
-          <Typography color="text.primary">{post.title}</Typography>
-        </Breadcrumbs>
+        <Box sx={{ mb: 4 }}>
+          <Breadcrumbs 
+            separator={<NavigateNextIcon fontSize="small" />}
+            aria-label="breadcrumb"
+          >
+            <Link 
+              underline="hover" 
+              color="inherit" 
+              onClick={() => navigate('/')}
+              sx={{ cursor: 'pointer' }}
+            >
+              Home
+            </Link>
+            <Link 
+              underline="hover" 
+              color="inherit" 
+              onClick={() => navigate('/news')}
+              sx={{ cursor: 'pointer' }}
+            >
+              News
+            </Link>
+            <Typography color="text.primary">{post.title}</Typography>
+          </Breadcrumbs>
+        </Box>
 
         <Paper 
-          elevation={2} 
+          elevation={3} 
           sx={{ 
             p: { xs: 3, md: 5 }, 
-            mb: 4, 
             borderRadius: 2,
-            position: 'relative',
-            overflow: 'hidden'
+            mb: 4
           }}
         >
-          <Box 
-            sx={{ 
-              position: 'absolute', 
-              top: 0, 
-              left: 0, 
-              width: '100%', 
-              height: '5px',
-              background: theme => `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`
-            }} 
-          />
-          
           <Typography 
-            variant="h2" 
+            variant="h3" 
             component="h1" 
             gutterBottom
             sx={{ 
               mb: 3,
-              fontWeight: 700
+              position: 'relative',
+              '&:after': {
+                content: '""',
+                position: 'absolute',
+                width: '60px',
+                height: '4px',
+                bottom: '-8px',
+                left: 0,
+                backgroundColor: 'primary.main',
+                borderRadius: '2px'
+              }
             }}
           >
             {post.title}
           </Typography>
           
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 4, color: 'text.secondary' }}>
-            <CalendarIcon fontSize="small" sx={{ mr: 1 }} />
-            <Typography variant="body1">
-              {post.date}
-            </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
+            <Chip 
+              icon={<CalendarIcon />} 
+              label={formatDate(post.date)} 
+              variant="outlined" 
+              size="small"
+            />
           </Box>
           
-          <Box sx={{ mb: 4 }}>
+          <Box sx={{ mt: 4 }}>
             <MarkdownRenderer content={post.content} />
           </Box>
         </Paper>
         
-        <Box sx={{ mt: 6, textAlign: 'center' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', mb: 6 }}>
           <Button 
-            component={Link} 
-            to="/news" 
+            variant="contained" 
             startIcon={<ArrowBackIcon />}
-            variant="contained"
+            onClick={() => navigate('/news')}
           >
             Back to News
           </Button>

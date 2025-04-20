@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { 
   Box, 
   Typography, 
-  Grid, 
   TextField, 
   InputAdornment,
   Container,
@@ -14,7 +13,7 @@ import {
 } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
-import AnimatedCard from '../components/AnimatedCard';
+import TimelineNews from '../components/TimelineNews';
 import { getNewsPosts } from '../utils/markdownLoader';
 
 export default function NewsPage() {
@@ -24,7 +23,7 @@ export default function NewsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   
-  const postsPerPage = 6;
+  const postsPerPage = 10; // More posts per page for timeline view
 
   useEffect(() => {
     async function fetchPosts() {
@@ -68,19 +67,6 @@ export default function NewsPage() {
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
-  // Group posts by year
-  const postsByYear = currentPosts.reduce((acc, post) => {
-    const year = new Date(post.date).getFullYear();
-    if (!acc[year]) {
-      acc[year] = [];
-    }
-    acc[year].push(post);
-    return acc;
-  }, {});
-
-  // Sort years in descending order
-  const sortedYears = Object.keys(postsByYear).sort((a, b) => b - a);
-
   return (
     <Container maxWidth="lg">
       <motion.div
@@ -108,7 +94,7 @@ export default function NewsPage() {
             }
           }}
         >
-          News & Updates
+          News
         </Typography>
       </motion.div>
 
@@ -135,62 +121,25 @@ export default function NewsPage() {
         </Box>
       ) : filteredPosts.length > 0 ? (
         <>
-          {sortedYears.map(year => (
-            <Box key={year} sx={{ mb: 6 }}>
-              <Typography 
-                variant="h4" 
-                component="h2" 
-                gutterBottom
-                sx={{ 
-                  mb: 3,
-                  position: 'relative',
-                  display: 'inline-block',
-                  '&:after': {
-                    content: '""',
-                    position: 'absolute',
-                    width: '100%',
-                    height: '2px',
-                    bottom: '-4px',
-                    left: 0,
-                    backgroundColor: 'primary.main',
-                    borderRadius: '2px'
-                  }
-                }}
-              >
-                {year}
-              </Typography>
-              
-              <Grid container spacing={3}>
-                {postsByYear[year].map((post, index) => (
-                  <Grid item xs={12} sm={6} md={4} key={post.id}>
-                    <AnimatedCard
-                      title={post.title}
-                      date={post.date}
-                      excerpt={post.excerpt}
-                      link={post.path}
-                      delay={index}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-              
-              {year !== sortedYears[sortedYears.length - 1] && (
-                <Divider sx={{ mt: 4 }} />
-              )}
-            </Box>
-          ))}
-          
-          {totalPages > 1 && (
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6 }}>
-              <Pagination 
-                count={totalPages} 
-                page={currentPage} 
-                onChange={handlePageChange} 
-                color="primary" 
-                size="large"
-              />
-            </Box>
-          )}
+          <motion.div
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <TimelineNews posts={currentPosts} />
+            
+            {totalPages > 1 && (
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6 }}>
+                <Pagination 
+                  count={totalPages} 
+                  page={currentPage} 
+                  onChange={handlePageChange} 
+                  color="primary" 
+                  size="large"
+                />
+              </Box>
+            )}
+          </motion.div>
         </>
       ) : (
         <Card sx={{ p: 3, textAlign: 'center' }}>

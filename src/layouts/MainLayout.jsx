@@ -139,12 +139,21 @@ export default function MainLayout() {
                 alignItems: 'center',
               }}
             >
-              <motion.div
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.5 }}
+              <Box 
+                sx={{ 
+                  display: 'flex', 
+                  alignItems: 'center',
+                  height: '24px' // Match the icon height
+                }}
               >
-                <HomeIcon sx={{ mr: 1 }} />
-              </motion.div>
+                <motion.div
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.5 }}
+                  style={{ display: 'flex', alignItems: 'center' }}
+                >
+                  <HomeIcon sx={{ mr: 1 }} />
+                </motion.div>
+              </Box>
               ZhongLi Shen
             </Typography>
             
