@@ -15,7 +15,16 @@ import HeroSection from '../components/HeroSection';
 import ContactSection from '../components/ContactSection';
 import AnimatedCard from '../components/AnimatedCard';
 import SkillChip from '../components/SkillChip';
+import FeatureCard from '../components/FeatureCard';
 import { getBlogPosts, getNewsPosts } from '../utils/markdownLoader';
+import { 
+  Code as CodeIcon, 
+  Storage as StorageIcon,
+  Engineering as EngineeringIcon,
+  Layers as LayersIcon,
+  SmartToy as SmartToyIcon,
+  Bolt as BoltIcon
+} from '@mui/icons-material';
 
 export default function HomePage() {
   const [latestBlogs, setLatestBlogs] = useState([]);
@@ -85,46 +94,79 @@ export default function HomePage() {
           </motion.div>
           
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={7}>
               <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <Typography variant="body1" paragraph>
-                  Hello! I'm ZhongLi Shen, a passionate developer and tech enthusiast. I love building things for the web and sharing my knowledge with others.
-                </Typography>
-                <Typography variant="body1" paragraph>
-                  With several years of experience in software development, I've worked on a variety of projects ranging from web applications to mobile apps and data analysis tools.
-                </Typography>
-                <Typography variant="body1" paragraph>
-                  When I'm not coding, you can find me exploring new technologies, writing blog posts, or enjoying outdoor activities.
-                </Typography>
+                <Box sx={{ pl: 2, borderLeft: '3px solid', borderColor: 'primary.main' }}>
+                  <Typography variant="body1" paragraph sx={{ display: 'flex', alignItems: 'center' }}>
+                    <CodeIcon sx={{ mr: 1, color: 'primary.main' }} /> 
+                    Super experienced backend software engineer.
+                  </Typography>
+                  <Typography variant="body1" paragraph sx={{ display: 'flex', alignItems: 'center' }}>
+                    <StorageIcon sx={{ mr: 1, color: 'primary.main' }} /> 
+                    Manage large scale distributed systems and high performance application.
+                  </Typography>
+                  <Typography variant="body1" paragraph sx={{ display: 'flex', alignItems: 'center' }}>
+                    <EngineeringIcon sx={{ mr: 1, color: 'primary.main' }} /> 
+                    Know how to make things done, and know under the hood.
+                  </Typography>
+                  <Typography variant="body1" paragraph sx={{ display: 'flex', alignItems: 'center' }}>
+                    <LayersIcon sx={{ mr: 1, color: 'primary.main' }} /> 
+                    Believe in the future of Web3.
+                  </Typography>
+                  <Typography variant="body1" paragraph sx={{ display: 'flex', alignItems: 'center' }}>
+                    <SmartToyIcon sx={{ mr: 1, color: 'primary.main' }} /> 
+                    Interested in using AI product, but not figure out how AI works.
+                  </Typography>
+                  <Typography variant="body1" paragraph sx={{ display: 'flex', alignItems: 'center' }}>
+                    <BoltIcon sx={{ mr: 1, color: 'primary.main' }} /> 
+                    I do things first, without thinking consequences.
+                  </Typography>
+                </Box>
               </motion.div>
             </Grid>
             
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={5}>
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>My Skills</Typography>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                  {skills.map((skill, index) => (
-                    <motion.div
-                      key={skill}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, delay: 0.1 + index * 0.03 }}
-                    >
-                      <SkillChip skill={skill} />
-                    </motion.div>
-                  ))}
-                </Box>
+                <Box 
+                  component="img"
+                  src="/assets/images/coding.svg"
+                  alt="Software Development Illustration"
+                  sx={{ 
+                    width: '100%', 
+                    maxWidth: 400,
+                    height: 'auto',
+                    display: { xs: 'none', md: 'block' },
+                    mx: 'auto'
+                  }}
+                />
               </motion.div>
             </Grid>
           </Grid>
+          
+          {/* Skills Section */}
+          <Box sx={{ mt: 6 }}>
+            <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>My Skills</Typography>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+              {skills.map((skill, index) => (
+                <motion.div
+                  key={skill}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.1 + index * 0.03 }}
+                >
+                  <SkillChip skill={skill} />
+                </motion.div>
+              ))}
+            </Box>
+          </Box>
         </Box>
         
         <Divider sx={{ my: 6 }} />
