@@ -107,10 +107,11 @@ export default function MainLayout() {
         <AppBar 
           position="sticky" 
           sx={{
-            backgroundColor: scrolled ? 'background.paper' : 'transparent',
+            backgroundColor: scrolled ? 'background.paper' : (mode === 'light' ? 'rgba(255, 255, 255, 0.8)' : 'transparent'),
             boxShadow: scrolled ? 1 : 0,
             transition: 'all 0.3s ease',
             backdropFilter: scrolled ? 'blur(10px)' : 'none',
+            color: mode === 'light' ? 'text.primary' : 'inherit',
           }}
           elevation={scrolled ? 4 : 0}
         >
@@ -132,7 +133,7 @@ export default function MainLayout() {
                 flexGrow: 1,
                 fontWeight: 700,
                 letterSpacing: '.1rem',
-                color: 'inherit',
+                color: mode === 'light' ? 'text.primary' : 'inherit',
                 textDecoration: 'none',
                 display: 'flex',
                 alignItems: 'center',
@@ -153,7 +154,7 @@ export default function MainLayout() {
                   component={Link}
                   to={item.path}
                   sx={{ 
-                    color: 'inherit',
+                    color: mode === 'light' ? 'text.primary' : 'inherit',
                     mx: 1,
                     position: 'relative',
                     '&::after': {
@@ -176,7 +177,7 @@ export default function MainLayout() {
                 </Button>
               ))}
             </Box>
-            <IconButton color="inherit" onClick={toggleTheme} sx={{ ml: 1 }}>
+            <IconButton color={mode === 'light' ? 'primary' : 'inherit'} onClick={toggleTheme} sx={{ ml: 1 }}>
               {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
             </IconButton>
           </Toolbar>

@@ -34,6 +34,10 @@ export function useTheme() {
             default: mode === 'dark' ? '#121212' : '#f5f5f5',
             paper: mode === 'dark' ? '#1e1e1e' : '#ffffff',
           },
+          text: {
+            primary: mode === 'dark' ? '#ffffff' : '#333333',
+            secondary: mode === 'dark' ? '#b0b0b0' : '#666666',
+          },
         },
         typography: {
           fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
