@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: write  # Added explicit write permissions
+  contents: write  # Explicit write permissions
 
 jobs:
   build-and-deploy:
