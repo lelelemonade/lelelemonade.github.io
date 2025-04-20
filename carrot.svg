@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background flash effect -->
+  <defs>
+    <radialGradient id="flashGradient" cx="50%" cy="50%" r="70%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#FFEB3B" stop-opacity="0.9"/>
+      <stop offset="70%" stop-color="#FF9800" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#FF5722" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="15" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  
+  <!-- Flash background -->
+  <circle cx="256" cy="256" r="200" fill="url(#flashGradient)" filter="url(#glow)"/>
+  
+  <!-- Carrot body -->
+  <path d="M256 120C290 120 310 150 310 170C310 240 256 380 256 380C256 380 202 240 202 170C202 150 222 120 256 120Z" fill="#FF7043" stroke="#E64A19" stroke-width="8"/>
+  
+  <!-- Carrot details/texture -->
+  <path d="M256 140C256 140 240 170 240 210C240 250 256 320 256 320M256 140C256 140 272 170 272 210C272 250 256 320 256 320" stroke="#E64A19" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Carrot top leaves -->
+  <path d="M226 130C226 130 200 90 180 100C160 110 190 140 226 130Z" fill="#4CAF50" stroke="#2E7D32" stroke-width="4"/>
+  <path d="M256 120C256 120 250 70 280 60C310 50 290 110 256 120Z" fill="#4CAF50" stroke="#2E7D32" stroke-width="4"/>
+  <path d="M286 130C286 130 320 100 340 110C360 120 320 140 286 130Z" fill="#4CAF50" stroke="#2E7D32" stroke-width="4"/>
+  
+  <!-- Sparkle effects -->
+  <circle cx="180" cy="200" r="10" fill="white" opacity="0.8"/>
+  <circle cx="320" cy="220" r="8" fill="white" opacity="0.6"/>
+  <circle cx="256" cy="300" r="12" fill="white" opacity="0.7"/>
+  <circle cx="220" cy="250" r="6" fill="white" opacity="0.9"/>
+  <circle cx="290" cy="180" r="7" fill="white" opacity="0.8"/>
+</svg>
