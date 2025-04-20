@@ -12,6 +12,7 @@ import {
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import HeroSection from '../components/HeroSection';
+import ContactSection from '../components/ContactSection';
 import AnimatedCard from '../components/AnimatedCard';
 import { getBlogPosts, getNewsPosts } from '../utils/markdownLoader';
 
@@ -266,82 +267,8 @@ export default function HomePage() {
         </Box>
         
         {/* Contact Section */}
-        <Box 
-          sx={{ 
-            mb: 8, 
-            p: 4, 
-            borderRadius: 4,
-            background: theme => `linear-gradient(135deg, ${theme.palette.background.paper} 0%, ${theme.palette.action.hover} 100%)`,
-          }}
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Typography 
-              variant="h3" 
-              component="h2" 
-              gutterBottom
-              sx={{ 
-                position: 'relative',
-                display: 'inline-block',
-                mb: 4,
-                '&:after': {
-                  content: '""',
-                  position: 'absolute',
-                  width: '60%',
-                  height: '4px',
-                  bottom: '-8px',
-                  left: 0,
-                  backgroundColor: 'primary.main',
-                  borderRadius: '2px'
-                }
-              }}
-            >
-              Get In Touch
-            </Typography>
-          </motion.div>
-          
-          <Typography variant="body1" paragraph>
-            I'm always open to new opportunities and collaborations. Feel free to reach out to me through any of the channels below.
-          </Typography>
-          
-          <Grid container spacing={2} sx={{ mt: 2 }}>
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ height: '100%' }}>
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>Email</Typography>
-                  <Typography variant="body2">your.email@example.com</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ height: '100%' }}>
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>GitHub</Typography>
-                  <Typography variant="body2">github.com/lelelemonade</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ height: '100%' }}>
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>LinkedIn</Typography>
-                  <Typography variant="body2">linkedin.com/in/zhonglishen</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ height: '100%' }}>
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>Twitter</Typography>
-                  <Typography variant="body2">twitter.com/zhonglishen</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
-        </Box>
+        <ContactSection />
+        
       </Container>
     </Box>
   );

@@ -147,6 +147,7 @@ export default function MainLayout() {
               </motion.div>
               ZhongLi Shen
             </Typography>
+            
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               {navItems.map((item) => (
                 <Button
