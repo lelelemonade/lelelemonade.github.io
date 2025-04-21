@@ -170,7 +170,7 @@ export default function HomePage() {
         
         <Divider sx={{ my: 6 }} />
         
-        {/* Latest Blog Posts */}
+        {/* Latest Blogs */}
         <Box sx={{ mb: 8 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
             <Typography 
@@ -191,7 +191,7 @@ export default function HomePage() {
                 }
               }}
             >
-              Latest Blog Posts
+              Latest Blogs
             </Typography>
             <Button 
               component={Link} 
@@ -203,7 +203,7 @@ export default function HomePage() {
           </Box>
           
           {loading ? (
-            <Typography>Loading latest blog posts...</Typography>
+            <Typography>Loading latest blogs...</Typography>
           ) : latestBlogs.length > 0 ? (
             <Grid container spacing={3}>
               {latestBlogs.map((post, index) => (
