@@ -19,6 +19,7 @@ import {
   CalendarToday as CalendarIcon,
   ArrowBack as ArrowBackIcon
 } from '@mui/icons-material';
+import { motion } from 'framer-motion';
 import MarkdownRenderer from '../components/MarkdownRenderer';
 import { getBlogPosts } from '../utils/markdownLoader';
 import avatarImage from '../assets/images/me.jpg';
@@ -164,7 +165,7 @@ export default function BlogPostPage() {
               Related Posts
             </Typography>
             <Grid container spacing={3}>
-              {relatedPosts.map((relatedPost) => (
+              {relatedPosts.map((relatedPost, index) => (
                 <Grid item xs={12} md={4} key={relatedPost.id}>
                   <Card 
                     component={Link} 
