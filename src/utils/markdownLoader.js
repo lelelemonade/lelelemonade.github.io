@@ -4,7 +4,7 @@
 
 // Function to get all blog posts
 export async function getBlogPosts() {
-  const blogModules = import.meta.glob('/src/content/blogs/*.md', { as: 'raw' });
+  const blogModules = import.meta.glob('/src/content/blogs/*.md', { query: '?raw', import: 'default' });
   
   const blogPosts = await Promise.all(
     Object.entries(blogModules).map(async ([path, loadModule]) => {
@@ -32,7 +32,7 @@ export async function getBlogPosts() {
 
 // Function to get all news posts
 export async function getNewsPosts() {
-  const newsModules = import.meta.glob('/src/content/news/*.md', { as: 'raw' });
+  const newsModules = import.meta.glob('/src/content/news/*.md', { query: '?raw', import: 'default' });
   
   const newsPosts = await Promise.all(
     Object.entries(newsModules).map(async ([path, loadModule]) => {

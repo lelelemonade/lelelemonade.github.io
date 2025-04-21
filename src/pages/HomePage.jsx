@@ -207,7 +207,7 @@ export default function HomePage() {
           ) : latestBlogs.length > 0 ? (
             <Grid container spacing={3}>
               {latestBlogs.map((post, index) => (
-                <Grid item xs={12} sm={6} md={4} key={post.id}>
+                <Grid item size={{xs:12, sm:6}} md={4} key={post.id}>
                   <AnimatedCard
                     title={post.title}
                     date={post.date}
