@@ -47,7 +47,7 @@ export async function getNewsPosts() {
         id: fileName,
         title: meta.title || fileName,
         date: meta.date || 'Unknown date',
-        excerpt: meta.excerpt || content.substring(content.indexOf('---', 3) + 3).trim().substring(0, 150) + '...',
+        excerpt: meta.excerpt || content.substring(content.indexOf('---', 3) + 3).trim().substring(0, 20) + '...',
         content,
         path: `/news/${fileName}`,
       };
