@@ -16,6 +16,7 @@ import {
   ArrowBack as ArrowBackIcon,
   CalendarToday as CalendarIcon
 } from '@mui/icons-material';
+import { motion } from 'framer-motion';
 import MarkdownRenderer from '../components/MarkdownRenderer';
 import { getNewsPosts } from '../utils/markdownLoader';
 
