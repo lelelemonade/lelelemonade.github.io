@@ -80,7 +80,7 @@ const MainLayout: React.FC = () => {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        ZhongLi Shenjjj
+        ZhongLi Shen
       </Typography>
       <List>
         {navItems.map((item) => (
