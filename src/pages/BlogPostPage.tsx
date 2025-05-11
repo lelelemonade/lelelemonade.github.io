@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
   Box, 
@@ -21,21 +21,29 @@ import {
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import MarkdownRenderer from '../components/MarkdownRenderer';
-import { getBlogPosts } from '../utils/markdownLoader';
+import { getBlogPosts, Post } from '../utils/markdownLoader';
 import avatarImage from '../assets/images/me.jpg';
 
-export default function BlogPostPage() {
-  const { id } = useParams();
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [relatedPosts, setRelatedPosts] = useState([]);
-  const [error, setError] = useState(null);
+interface BlogPostWithTags extends Post {
+  tags?: string[];
+}
+
+interface RouteParams {
+  id: string;
+}
+
+const BlogPostPage: React.FC = () => {
+  const { id } = useParams<RouteParams>();
+  const [post, setPost] = useState<BlogPostWithTags | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [relatedPosts, setRelatedPosts] = useState<BlogPostWithTags[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchPost() {
+    async function fetchPost(): Promise<void> {
       try {
         setLoading(true);
-        const allPosts = await getBlogPosts();
+        const allPosts = await getBlogPosts() as BlogPostWithTags[];
         const currentPost = allPosts.find(post => post.id === id);
         
         if (!currentPost) {
@@ -48,7 +56,7 @@ export default function BlogPostPage() {
         // Find related posts (posts with similar tags)
         if (currentPost.tags && currentPost.tags.length > 0) {
           const related = allPosts
-            .filter(p => p.id !== id && p.tags && p.tags.some(tag => currentPost.tags.includes(tag)))
+            .filter(p => p.id !== id && p.tags && p.tags.some(tag => currentPost.tags!.includes(tag)))
             .slice(0, 3);
           setRelatedPosts(related);
         }
@@ -60,7 +68,9 @@ export default function BlogPostPage() {
       }
     }
     
-    fetchPost();
+    if (id) {
+      fetchPost();
+    }
   }, [id]);
 
   if (loading) {
@@ -165,7 +175,7 @@ export default function BlogPostPage() {
               Related Posts
             </Typography>
             <Grid container spacing={3}>
-              {relatedPosts.map((relatedPost, index) => (
+              {relatedPosts.map((relatedPost) => (
                 <Grid item xs={12} md={4} key={relatedPost.id}>
                   <Card 
                     component={Link} 
@@ -208,4 +218,6 @@ export default function BlogPostPage() {
       </motion.div>
     </Container>
   );
-}
+};
+
+export default BlogPostPage;

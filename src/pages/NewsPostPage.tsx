@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
   Box, 
@@ -18,17 +18,21 @@ import {
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import MarkdownRenderer from '../components/MarkdownRenderer';
-import { getNewsPosts } from '../utils/markdownLoader';
+import { getNewsPosts, Post } from '../utils/markdownLoader';
 
-export default function NewsPostPage() {
-  const { id } = useParams();
+interface RouteParams {
+  id: string;
+}
+
+const NewsPostPage: React.FC = () => {
+  const { id } = useParams<RouteParams>();
   const navigate = useNavigate();
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [post, setPost] = useState<Post | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchPost() {
+    async function fetchPost(): Promise<void> {
       try {
         const allPosts = await getNewsPosts();
         const foundPost = allPosts.find(p => p.id === id);
@@ -46,11 +50,13 @@ export default function NewsPostPage() {
       }
     }
     
-    fetchPost();
+    if (id) {
+      fetchPost();
+    }
   }, [id]);
 
-  const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const formatDate = (dateString: string): string => {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
@@ -167,4 +173,6 @@ export default function NewsPostPage() {
       </motion.div>
     </Container>
   );
-}
+};
+
+export default NewsPostPage;

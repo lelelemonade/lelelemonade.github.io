@@ -1,9 +1,20 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Typography, Box, Chip } from '@mui/material';
 import { motion } from 'framer-motion';
 import { CalendarToday as CalendarIcon } from '@mui/icons-material';
 
-export default function AnimatedCard({ 
+interface AnimatedCardProps {
+  title: string;
+  date: string;
+  excerpt: string;
+  image?: string;
+  link: string;
+  tags?: string[];
+  delay?: number;
+}
+
+const AnimatedCard: React.FC<AnimatedCardProps> = ({ 
   title, 
   date, 
   excerpt, 
@@ -11,7 +22,7 @@ export default function AnimatedCard({
   link, 
   tags = [],
   delay = 0 
-}) {
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -101,4 +112,6 @@ export default function AnimatedCard({
       </Card>
     </motion.div>
   );
-}
+};
+
+export default AnimatedCard;

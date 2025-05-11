@@ -1,7 +1,15 @@
+import React from 'react';
 import { Paper, Typography, Box } from '@mui/material';
 import { motion } from 'framer-motion';
 
-const FeatureCard = ({ icon, title, description, delay = 0 }) => {
+interface FeatureCardProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  delay?: number;
+}
+
+const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, delay = 0 }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

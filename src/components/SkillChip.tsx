@@ -1,7 +1,12 @@
-import { Chip } from '@mui/material';
+import React from 'react';
+import { Chip, Theme } from '@mui/material';
 import { motion } from 'framer-motion';
 
-const SkillChip = ({ skill }) => {
+interface SkillChipProps {
+  skill: string;
+}
+
+const SkillChip: React.FC<SkillChipProps> = ({ skill }) => {
   return (
     <motion.div
       whileHover={{ 
@@ -18,12 +23,12 @@ const SkillChip = ({ skill }) => {
           fontSize: '0.9rem',
           py: 2.5,
           borderRadius: 2,
-          backgroundColor: theme => theme.palette.mode === 'dark' 
+          backgroundColor: (theme: Theme) => theme.palette.mode === 'dark' 
             ? 'rgba(255, 255, 255, 0.1)' 
             : 'rgba(0, 0, 0, 0.05)',
           color: 'text.primary',
           '&:hover': {
-            backgroundColor: theme => theme.palette.mode === 'dark' 
+            backgroundColor: (theme: Theme) => theme.palette.mode === 'dark' 
               ? 'rgba(255, 255, 255, 0.2)' 
               : 'rgba(0, 0, 0, 0.1)',
             boxShadow: '0 4px 8px rgba(0,0,0,0.1)'

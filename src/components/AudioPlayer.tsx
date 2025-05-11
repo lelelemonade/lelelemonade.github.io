@@ -1,16 +1,21 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Box, IconButton, Tooltip } from '@mui/material';
 import { VolumeUp as VolumeUpIcon } from '@mui/icons-material';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const AudioPlayer = ({ audioFile, tooltipText }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [audioContext, setAudioContext] = useState(null);
-  const [analyser, setAnalyser] = useState(null);
-  const [animationFrameId, setAnimationFrameId] = useState(null);
+interface AudioPlayerProps {
+  audioFile: string;
+  tooltipText?: string;
+}
+
+const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioFile, tooltipText }) => {
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
+  const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
+  const [animationFrameId, setAnimationFrameId] = useState<number | null>(null);
   
-  const audioRef = useRef(null);
-  const canvasRef = useRef(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   
   // Initialize audio context
   useEffect(() => {
@@ -24,9 +29,9 @@ const AudioPlayer = ({ audioFile, tooltipText }) => {
     };
   }, [animationFrameId, audioContext]);
   
-  const setupAudioContext = () => {
+  const setupAudioContext = (): void => {
     // Create audio context if it doesn't exist
-    if (!audioContext) {
+    if (!audioContext && audioRef.current) {
       const newAudioContext = new (window.AudioContext || window.webkitAudioContext)();
       const newAnalyser = newAudioContext.createAnalyser();
       
@@ -43,18 +48,20 @@ const AudioPlayer = ({ audioFile, tooltipText }) => {
     }
   };
   
-  const visualize = () => {
+  const visualize = (): void => {
     if (!analyser || !canvasRef.current) return;
     
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
     const width = canvas.width;
     const height = canvas.height;
     
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
     
-    const draw = () => {
+    const draw = (): void => {
       if (!isPlaying) return;
       
       setAnimationFrameId(requestAnimationFrame(draw));
@@ -85,7 +92,7 @@ const AudioPlayer = ({ audioFile, tooltipText }) => {
     draw();
   };
   
-  const togglePlay = () => {
+  const togglePlay = (): void => {
     if (!audioRef.current) return;
     
     if (isPlaying) {
@@ -104,7 +111,7 @@ const AudioPlayer = ({ audioFile, tooltipText }) => {
     }
   };
   
-  const handleAudioEnded = () => {
+  const handleAudioEnded = (): void => {
     setIsPlaying(false);
     if (animationFrameId) {
       cancelAnimationFrame(animationFrameId);

@@ -1,11 +1,12 @@
-import { Box, Typography, Container, Button, Avatar } from '@mui/material';
+import React from 'react';
+import { Box, Typography, Container, Button, Avatar, Theme } from '@mui/material';
 import { motion } from 'framer-motion';
 import { ArrowForward as ArrowForwardIcon } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import avatarImage from '../assets/images/me.jpg';
 import AudioPlayer from './AudioPlayer';
 
-export default function HeroSection() {
+const HeroSection: React.FC = () => {
   return (
     <Box
       sx={{
@@ -14,7 +15,7 @@ export default function HeroSection() {
         py: { xs: 8, md: 12 },
         mb: 6,
         borderRadius: 4,
-        background: theme => `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 100%)`,
+        background: (theme: Theme) => `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 100%)`,
       }}
     >
       <Container maxWidth="lg">
@@ -155,4 +156,6 @@ export default function HeroSection() {
       />
     </Box>
   );
-}
+};
+
+export default HeroSection;

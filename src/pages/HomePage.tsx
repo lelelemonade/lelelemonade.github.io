@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Box, 
   Typography, 
@@ -15,7 +15,7 @@ import HeroSection from '../components/HeroSection';
 import ContactSection from '../components/ContactSection';
 import AnimatedCard from '../components/AnimatedCard';
 import SkillChip from '../components/SkillChip';
-import { getBlogPosts, getNewsPosts } from '../utils/markdownLoader';
+import { getBlogPosts, getNewsPosts, Post } from '../utils/markdownLoader';
 import { 
   Code as CodeIcon, 
   Storage as StorageIcon,
@@ -25,13 +25,13 @@ import {
   Bolt as BoltIcon
 } from '@mui/icons-material';
 
-export default function HomePage() {
-  const [latestBlogs, setLatestBlogs] = useState([]);
-  const [latestNews, setLatestNews] = useState([]);
-  const [loading, setLoading] = useState(true);
+const HomePage: React.FC = () => {
+  const [latestBlogs, setLatestBlogs] = useState<Post[]>([]);
+  const [latestNews, setLatestNews] = useState<Post[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    async function fetchContent() {
+    async function fetchContent(): Promise<void> {
       try {
         const blogs = await getBlogPosts();
         const news = await getNewsPosts();
@@ -48,7 +48,7 @@ export default function HomePage() {
     fetchContent();
   }, []);
 
-  const skills = [
+  const skills: string[] = [
     'Java', 'Golang', 'Kotlin', 'Spring Boot', 'AWS', 'PostgreSQL', 
     'MySQL', 'Cassandra', 'Redis', 'Kubernetes', 'Docker', 'Kafka', 
     'RabbitMQ', 'Restful', 'gRPC', 'GraphQL', 'Prometheus', 'Grafana', 
@@ -207,7 +207,7 @@ export default function HomePage() {
           ) : latestBlogs.length > 0 ? (
             <Grid container spacing={3}>
               {latestBlogs.map((post, index) => (
-                <Grid item size={{xs:12, sm:6}} md={4} key={post.id}>
+                <Grid item xs={12} sm={6} md={4} key={post.id}>
                   <AnimatedCard
                     title={post.title}
                     date={post.date}
@@ -296,4 +296,6 @@ export default function HomePage() {
       </Container>
     </Box>
   );
-}
+};
+
+export default HomePage;

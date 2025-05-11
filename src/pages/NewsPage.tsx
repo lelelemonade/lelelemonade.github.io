@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Box, 
   Typography, 
@@ -8,25 +8,24 @@ import {
   Card,
   CardContent,
   CircularProgress,
-  Pagination,
-  Divider
+  Pagination
 } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import TimelineNews from '../components/TimelineNews';
-import { getNewsPosts } from '../utils/markdownLoader';
+import { getNewsPosts, Post } from '../utils/markdownLoader';
 
-export default function NewsPage() {
-  const [posts, setPosts] = useState([]);
-  const [filteredPosts, setFilteredPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
+const NewsPage: React.FC = () => {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState<number>(1);
   
   const postsPerPage = 10; // More posts per page for timeline view
 
   useEffect(() => {
-    async function fetchPosts() {
+    async function fetchPosts(): Promise<void> {
       try {
         const allPosts = await getNewsPosts();
         setPosts(allPosts);
@@ -52,11 +51,11 @@ export default function NewsPage() {
     setCurrentPage(1); // Reset to first page when filters change
   }, [searchTerm, posts]);
 
-  const handleSearchChange = (event) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(event.target.value);
   };
 
-  const handlePageChange = (event, value) => {
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number): void => {
     setCurrentPage(value);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -157,4 +156,6 @@ export default function NewsPage() {
       )}
     </Container>
   );
-}
+};
+
+export default NewsPage;

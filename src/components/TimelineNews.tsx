@@ -4,10 +4,10 @@ import {
   Typography, 
   Paper, 
   IconButton, 
-  Collapse, 
   Divider,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  Theme
 } from '@mui/material';
 import { 
   ExpandMore as ExpandMoreIcon,
@@ -16,14 +16,29 @@ import {
 } from '@mui/icons-material';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import MarkdownRenderer from './MarkdownRenderer';
+import { Post } from '../utils/markdownLoader';
 
-export default function TimelineNews({ posts }) {
-  const [expandedPost, setExpandedPost] = useState(null);
+interface TimelineNewsProps {
+  posts: Post[];
+}
+
+interface TimelineItemProps {
+  post: Post;
+  index: number;
+  isExpanded: boolean;
+  onToggle: () => void;
+  formatDate: (date: string) => string;
+  isMobile: boolean;
+  totalPosts: number;
+}
+
+const TimelineNews: React.FC<TimelineNewsProps> = ({ posts }) => {
+  const [expandedPost, setExpandedPost] = useState<string | null>(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const timelineRef = useRef(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
   
-  const handleToggleExpand = (id) => {
+  const handleToggleExpand = (id: string): void => {
     // If already expanded, collapse it
     if (expandedPost === id) {
       setExpandedPost(null);
@@ -34,8 +49,8 @@ export default function TimelineNews({ posts }) {
   };
   
   // Format date to be more readable
-  const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const formatDate = (dateString: string): string => {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
@@ -101,12 +116,18 @@ export default function TimelineNews({ posts }) {
       ))}
     </Box>
   );
-}
+};
 
-function TimelineItem({ post, index, isExpanded, onToggle, formatDate, isMobile, totalPosts }) {
-  const theme = useTheme();
-  const itemRef = useRef(null);
-  const contentRef = useRef(null);
+const TimelineItem: React.FC<TimelineItemProps> = ({ 
+  post, 
+  index, 
+  isExpanded, 
+  onToggle, 
+  formatDate, 
+  isMobile}) => {
+  const theme = useTheme<Theme>();
+  const itemRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(itemRef, { once: true, amount: 0.2 });
   const isEven = index % 2 === 0;
   
@@ -122,12 +143,12 @@ function TimelineItem({ post, index, isExpanded, onToggle, formatDate, isMobile,
   };
 
   // Keep track of the content height to prevent layout shifts
-  const [contentHeight, setContentHeight] = useState(0);
+  const [, setContentHeight] = useState<number>(0);
   
   useEffect(() => {
     if (contentRef.current) {
       // Get the height of the content when expanded
-      const updateHeight = () => {
+      const updateHeight = (): void => {
         if (isExpanded && contentRef.current) {
           setContentHeight(contentRef.current.scrollHeight);
         }
@@ -258,4 +279,6 @@ function TimelineItem({ post, index, isExpanded, onToggle, formatDate, isMobile,
       </Box>
     </motion.div>
   );
-}
+};
+
+export default TimelineNews;

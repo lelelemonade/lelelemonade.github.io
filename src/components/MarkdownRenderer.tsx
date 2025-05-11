@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus, prism } from 'react-syntax-highlighter/dist/esm/styles/prism';
@@ -6,8 +6,19 @@ import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import { Box, Typography, Paper, useTheme } from '@mui/material';
 
-export default function MarkdownRenderer({ content, frontmatter = true }) {
-  const [parsedContent, setParsedContent] = useState('');
+interface MarkdownRendererProps {
+  content: string;
+  frontmatter?: boolean;
+}
+
+interface CodeProps {
+  inline?: boolean;
+  className?: string;
+  children: React.ReactNode;
+}
+
+const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, frontmatter = true }) => {
+  const [parsedContent, setParsedContent] = useState<string>('');
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
 
@@ -94,7 +105,7 @@ export default function MarkdownRenderer({ content, frontmatter = true }) {
             p: (props) => (
               <Typography variant="body1" paragraph {...props} sx={{ mb: 2 }} />
             ),
-            code({ inline, className, children, ...props }) {
+            code: ({ inline, className, children, ...props }: CodeProps) => {
               const match = /language-(\w+)/.exec(className || '');
               return !inline && match ? (
                 <SyntaxHighlighter
@@ -118,4 +129,6 @@ export default function MarkdownRenderer({ content, frontmatter = true }) {
       </Box>
     </Paper>
   );
-}
+};
+
+export default MarkdownRenderer;

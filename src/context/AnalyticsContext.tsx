@@ -1,13 +1,27 @@
-import { createContext, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 
 // This is a placeholder for your Google Analytics measurement ID
 // In production, this should be loaded from an environment variable
-const MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
+const MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID as string | undefined;
 
-const AnalyticsContext = createContext();
+// Extend the Window interface to include gtag
+declare global {
+  interface Window {
+    dataLayer: any[];
+    gtag: (...args: any[]) => void;
+  }
+}
 
-export const AnalyticsProvider = ({ children }) => {
+type AnalyticsContextType = Record<string, never>;
+
+const AnalyticsContext = createContext<AnalyticsContextType>({});
+
+interface AnalyticsProviderProps {
+  children: ReactNode;
+}
+
+export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }) => {
   const location = useLocation();
 
   useEffect(() => {
@@ -21,9 +35,10 @@ export const AnalyticsProvider = ({ children }) => {
 
       // Initialize Google Analytics
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        window.dataLayer.push(arguments);
+      function gtag(...args: any[]) {
+        window.dataLayer.push(args);
       }
+      window.gtag = gtag;
       gtag('js', new Date());
       gtag('config', MEASUREMENT_ID);
 
@@ -31,6 +46,7 @@ export const AnalyticsProvider = ({ children }) => {
         document.head.removeChild(script);
       };
     }
+    return undefined;
   }, []);
 
   // Track page views
@@ -49,4 +65,4 @@ export const AnalyticsProvider = ({ children }) => {
   );
 };
 
-export const useAnalytics = () => useContext(AnalyticsContext);
+export const useAnalytics = (): AnalyticsContextType => useContext(AnalyticsContext);

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Box, 
   Typography, 
@@ -15,29 +15,29 @@ import {
 import { Search as SearchIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import AnimatedCard from '../components/AnimatedCard';
-import { getBlogPosts } from '../utils/markdownLoader';
+import { getBlogPosts, Post } from '../utils/markdownLoader';
 
-export default function BlogPage() {
-  const [posts, setPosts] = useState([]);
-  const [filteredPosts, setFilteredPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [tags, setTags] = useState([]);
-  const [selectedTags, setSelectedTags] = useState([]);
+const BlogPage: React.FC = () => {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [tags, setTags] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   
   const postsPerPage = 6;
 
   useEffect(() => {
-    async function fetchPosts() {
+    async function fetchPosts(): Promise<void> {
       try {
         const allPosts = await getBlogPosts();
         setPosts(allPosts);
         setFilteredPosts(allPosts);
         
         // Extract unique tags from all posts
-        const allTags = allPosts.reduce((acc, post) => {
-          const postTags = post.tags || [];
+        const allTags = allPosts.reduce<string[]>((acc, post) => {
+          const postTags = (post as any).tags || [];
           return [...acc, ...postTags];
         }, []);
         
@@ -59,7 +59,7 @@ export default function BlogPage() {
                            post.content.toLowerCase().includes(searchTerm.toLowerCase());
       
       const matchesTags = selectedTags.length === 0 || 
-                         (post.tags && selectedTags.every(tag => post.tags.includes(tag)));
+                         ((post as any).tags && selectedTags.every(tag => (post as any).tags.includes(tag)));
       
       return matchesSearch && matchesTags;
     });
@@ -68,11 +68,11 @@ export default function BlogPage() {
     setCurrentPage(1); // Reset to first page when filters change
   }, [searchTerm, selectedTags, posts]);
 
-  const handleSearchChange = (event) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(event.target.value);
   };
 
-  const handleTagClick = (tag) => {
+  const handleTagClick = (tag: string): void => {
     setSelectedTags(prev => 
       prev.includes(tag) 
         ? prev.filter(t => t !== tag) 
@@ -80,7 +80,7 @@ export default function BlogPage() {
     );
   };
 
-  const handlePageChange = (event, value) => {
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number): void => {
     setCurrentPage(value);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -168,7 +168,7 @@ export default function BlogPage() {
                   date={post.date}
                   excerpt={post.excerpt}
                   link={post.path}
-                  tags={post.tags}
+                  tags={(post as any).tags}
                   delay={index}
                 />
               </Grid>
@@ -203,4 +203,6 @@ export default function BlogPage() {
       )}
     </Container>
   );
-}
+};
+
+export default BlogPage;

@@ -1,22 +1,22 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { 
-  AppBar, 
-  Box, 
-  Toolbar, 
-  Typography, 
-  Button, 
-  IconButton, 
-  Drawer, 
-  List, 
-  ListItem, 
-  ListItemText, 
-  Container, 
-  useMediaQuery, 
-  Fab, 
-  Zoom,
-  CssBaseline,
-  ThemeProvider
+import {
+    AppBar,
+    Box,
+    Toolbar,
+    Typography,
+    Button,
+    IconButton,
+    Drawer,
+    List,
+    ListItem,
+    ListItemText,
+    Container,
+    Fab,
+    Zoom,
+    CssBaseline,
+    ThemeProvider,
+    Theme, ListItemButton
 } from '@mui/material';
 import { 
   Menu as MenuIcon, 
@@ -30,22 +30,28 @@ import {
 import { motion } from 'framer-motion';
 import { useTheme } from '../hooks/useTheme';
 
-const navItems = [
+interface NavItem {
+  name: string;
+  path: string;
+  icon: React.ReactNode;
+}
+
+const navItems: NavItem[] = [
   { name: 'Home', path: '/', icon: <HomeIcon /> },
   { name: 'Blog', path: '/blog', icon: <ArticleIcon /> },
   { name: 'News', path: '/news', icon: <NewsIcon /> },
 ];
 
-export default function MainLayout() {
+const MainLayout: React.FC = () => {
   const { theme, mode, toggleTheme } = useTheme();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState<boolean>(false);
+  const [scrolled, setScrolled] = useState<boolean>(false);
+  const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
   const location = useLocation();
 
   // Handle scroll events
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       const isScrolled = window.scrollY > 50;
       if (isScrolled !== scrolled) {
         setScrolled(isScrolled);
@@ -60,11 +66,11 @@ export default function MainLayout() {
     };
   }, [scrolled]);
 
-  const handleDrawerToggle = () => {
+  const handleDrawerToggle = (): void => {
     setMobileOpen(!mobileOpen);
   };
 
-  const scrollToTop = () => {
+  const scrollToTop = (): void => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
@@ -74,33 +80,34 @@ export default function MainLayout() {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        ZhongLi Shen
+        ZhongLi Shenjjj
       </Typography>
       <List>
         {navItems.map((item) => (
-          <ListItem 
-            key={item.name} 
-            component={Link} 
-            to={item.path}
-            selected={location.pathname === item.path}
-            sx={{
-              color: 'text.primary',
-              '&.Mui-selected': {
-                backgroundColor: 'action.selected',
-                color: 'primary.main',
-              }
-            }}
-          >
-            <Box sx={{ mr: 1 }}>{item.icon}</Box>
-            <ListItemText primary={item.name} />
-          </ListItem>
+            <ListItem disablePadding key={item.name}>
+                <ListItemButton
+                    component={Link}
+                    to={item.path}
+                    selected={location.pathname === item.path}
+                    sx={{
+                        color: 'text.primary',
+                        '&.Mui-selected': {
+                            backgroundColor: 'action.selected',
+                            color: 'primary.main',
+                        }
+                    }}
+                >
+                    <Box sx={{ mr: 1 }}>{item.icon}</Box>
+                    <ListItemText primary={item.name} />
+                </ListItemButton>
+            </ListItem>
         ))}
       </List>
     </Box>
   );
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme as Theme}>
       <CssBaseline />
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <AppBar 
@@ -267,4 +274,6 @@ export default function MainLayout() {
       </Box>
     </ThemeProvider>
   );
-}
+};
+
+export default MainLayout;

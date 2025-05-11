@@ -1,8 +1,10 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Typography, Button, Container } from '@mui/material';
 import { Home as HomeIcon } from '@mui/icons-material';
+import { motion } from 'framer-motion';
 
-export default function NotFoundPage() {
+const NotFoundPage: React.FC = () => {
   return (
     <Container maxWidth="md">
       <Box
@@ -82,4 +84,6 @@ export default function NotFoundPage() {
       </Box>
     </Container>
   );
-}
+};
+
+export default NotFoundPage;

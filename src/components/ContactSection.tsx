@@ -1,3 +1,4 @@
+import React from 'react';
 import {Box, Typography, Container, IconButton, Paper, Tooltip, Grid} from '@mui/material';
 import {motion} from 'framer-motion';
 import {
@@ -8,7 +9,7 @@ import {
 import {useTheme} from '../hooks/useTheme';
 
 // Discord icon SVG component
-function DiscordIcon() {
+const DiscordIcon: React.FC = () => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -21,10 +22,10 @@ function DiscordIcon() {
                 d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
         </svg>
     );
-}
+};
 
 // LeetCode icon SVG component
-function LeetCodeIcon() {
+const LeetCodeIcon: React.FC = () => {
     return (
         <svg
             height="32"
@@ -36,12 +37,19 @@ function LeetCodeIcon() {
                 d="m21.469 23.907-3.595 3.473c-.624.625-1.484.885-2.432.885s-1.807-.26-2.432-.885l-5.776-5.812c-.62-.625-.937-1.537-.937-2.485 0-.952.317-1.812.937-2.432l5.76-5.844c.62-.619 1.5-.859 2.448-.859s1.808.26 2.432.885l3.595 3.473c.687.688 1.823.663 2.536-.052.708-.713.735-1.848.047-2.536l-3.473-3.511c-.901-.891-2.032-1.505-3.261-1.787l3.287-3.333c.688-.687.667-1.823-.047-2.536s-1.849-.735-2.536-.052l-13.469 13.469c-1.307 1.312-1.989 3.113-1.989 5.113 0 1.996.683 3.86 1.989 5.168l5.797 5.812c1.307 1.307 3.115 1.937 5.115 1.937 1.995 0 3.801-.683 5.109-1.989l3.479-3.521c.688-.683.661-1.817-.052-2.531s-1.849-.74-2.531-.052zm6.28-6.558h-13.531c-.932 0-1.692.801-1.692 1.791 0 .991.76 1.797 1.692 1.797h13.531c.933 0 1.693-.807 1.693-1.797 0-.989-.76-1.791-1.693-1.791z"/>
         </svg>
     );
+};
+
+interface SocialLink {
+    name: string;
+    icon: React.ReactNode;
+    url: string;
+    color: string;
 }
 
-export default function ContactSection() {
+const ContactSection: React.FC = () => {
     const {mode} = useTheme();
 
-    const socialLinks = [
+    const socialLinks: SocialLink[] = [
         {
             name: 'Email',
             icon: <EmailIcon fontSize="large"/>,
@@ -171,4 +179,6 @@ export default function ContactSection() {
             </Container>
         </Box>
     );
-}
+};
+
+export default ContactSection;

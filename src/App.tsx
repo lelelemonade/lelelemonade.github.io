@@ -8,7 +8,7 @@ import NewsPage from './pages/NewsPage';
 import NewsPostPage from './pages/NewsPostPage';
 import NotFoundPage from './pages/NotFoundPage';
 
-function App() {
+const App: React.FC = () => {
   return (
     <AnalyticsProvider>
       <Routes>
