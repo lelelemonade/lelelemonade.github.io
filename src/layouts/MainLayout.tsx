@@ -23,6 +23,7 @@ import {
   Home as HomeIcon, 
   Article as ArticleIcon, 
   Newspaper as NewsIcon, 
+  EmojiEmotions as StickerIcon,
   DarkMode as DarkModeIcon, 
   LightMode as LightModeIcon,
   KeyboardArrowUp as KeyboardArrowUpIcon
@@ -40,6 +41,7 @@ const navItems: NavItem[] = [
   { name: 'Home', path: '/', icon: <HomeIcon /> },
   { name: 'Blog', path: '/blog', icon: <ArticleIcon /> },
   { name: 'News', path: '/news', icon: <NewsIcon /> },
+  { name: 'Stickers', path: '/stickers', icon: <StickerIcon /> },
 ];
 
 const MainLayout: React.FC = () => {

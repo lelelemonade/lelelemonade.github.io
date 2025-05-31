@@ -6,6 +6,7 @@ import BlogPage from './pages/BlogPage';
 import BlogPostPage from './pages/BlogPostPage';
 import NewsPage from './pages/NewsPage';
 import NewsPostPage from './pages/NewsPostPage';
+import StickersPage from './pages/StickersPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 const App: React.FC = () => {
@@ -18,6 +19,7 @@ const App: React.FC = () => {
           <Route path="blog/:id" element={<BlogPostPage />} />
           <Route path="news" element={<NewsPage />} />
           <Route path="news/:id" element={<NewsPostPage />} />
+          <Route path="stickers" element={<StickersPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
