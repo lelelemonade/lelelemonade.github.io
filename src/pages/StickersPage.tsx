@@ -132,7 +132,7 @@ const StickersPage: React.FC = () => {
         <TextField
           fullWidth
           variant="outlined"
-          placeholder="Search stickers..."
+          placeholder="Search stickers used by ZhongLi..."
           value={searchTerm}
           onChange={handleSearchChange}
           InputProps={{
