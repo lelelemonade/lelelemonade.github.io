@@ -40,10 +40,16 @@ export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }
       }
       window.gtag = gtag;
       gtag('js', new Date());
-      gtag('config', MEASUREMENT_ID);
+      gtag('config', MEASUREMENT_ID, {
+        send_page_view: false // We'll handle page views manually
+      });
 
       return () => {
-        document.head.removeChild(script);
+        // Clean up script when component unmounts
+        const scriptElement = document.querySelector(`script[src="https://www.googletagmanager.com/gtag/js?id=${MEASUREMENT_ID}"]`);
+        if (scriptElement && scriptElement.parentNode) {
+          scriptElement.parentNode.removeChild(scriptElement);
+        }
       };
     }
     return undefined;
@@ -52,7 +58,10 @@ export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }
   // Track page views
   useEffect(() => {
     if (MEASUREMENT_ID && window.gtag) {
-      window.gtag('config', MEASUREMENT_ID, {
+      console.log(`Tracking page view: ${location.pathname}${location.search}`);
+      window.gtag('event', 'page_view', {
+        page_title: document.title,
+        page_location: window.location.href,
         page_path: location.pathname + location.search,
       });
     }
