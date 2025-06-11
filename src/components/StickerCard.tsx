@@ -1,18 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   Card, 
   CardContent, 
   CardMedia, 
-  Typography, 
-  Box, 
-  IconButton, 
-  Snackbar,
-  Alert
+  Typography,
 } from '@mui/material';
-import { 
-  ContentCopy as CopyIcon, 
-  Download as DownloadIcon 
-} from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { Sticker } from '../utils/stickerLoader';
 
@@ -22,48 +14,6 @@ interface StickerCardProps {
 }
 
 const StickerCard: React.FC<StickerCardProps> = ({ sticker, delay = 0 }) => {
-  const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false);
-  const [snackbarMessage, setSnackbarMessage] = useState<string>('');
-
-  const handleCopy = async (): Promise<void> => {
-    try {
-      // For images, we need to fetch them and create a blob
-      const response = await fetch(sticker.url);
-      const blob = await response.blob();
-      
-      // Use the clipboard API to copy the image
-      await navigator.clipboard.write([
-        new ClipboardItem({
-          [blob.type]: blob
-        })
-      ]);
-      
-      setSnackbarMessage('Sticker copied to clipboard!');
-      setSnackbarOpen(true);
-    } catch (error) {
-      console.error('Failed to copy sticker:', error);
-      setSnackbarMessage('Failed to copy sticker. Your browser may not support this feature.');
-      setSnackbarOpen(true);
-    }
-  };
-
-  const handleDownload = (): void => {
-    // Create a temporary anchor element
-    const link = document.createElement('a');
-    link.href = sticker.url;
-    link.download = `${sticker.name}.${sticker.format}`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    setSnackbarMessage('Sticker downloaded!');
-    setSnackbarOpen(true);
-  };
-
-  const handleCloseSnackbar = (): void => {
-    setSnackbarOpen(false);
-  };
-
   return (
     <>
       <motion.div
@@ -107,40 +57,13 @@ const StickerCard: React.FC<StickerCardProps> = ({ sticker, delay = 0 }) => {
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
               }}
+              align={"center"}
             >
               {sticker.name}
             </Typography>
-            
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1 }}>
-              <IconButton 
-                color="primary" 
-                onClick={handleCopy}
-                aria-label="Copy sticker to clipboard"
-              >
-                <CopyIcon />
-              </IconButton>
-              <IconButton 
-                color="secondary" 
-                onClick={handleDownload}
-                aria-label="Download sticker"
-              >
-                <DownloadIcon />
-              </IconButton>
-            </Box>
           </CardContent>
         </Card>
       </motion.div>
-      
-      <Snackbar 
-        open={snackbarOpen} 
-        autoHideDuration={3000} 
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
     </>
   );
 };
