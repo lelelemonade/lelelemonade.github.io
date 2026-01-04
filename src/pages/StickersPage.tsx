@@ -211,8 +211,8 @@ const StickersPage: React.FC = () => {
         aria-label="upload"
         sx={{
           position: 'fixed',
-          bottom: 24,
-          right: 24,
+          top: 80,
+          right: 65,
         }}
         onClick={() => setUploadDialogOpen(true)}
       >
