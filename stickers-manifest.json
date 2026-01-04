@@ -1,0 +1,17 @@
+{
+  "name": "Stickers",
+  "short_name": "Stickers",
+  "description": "Personal stickers collection and management app",
+  "start_url": "/stickers.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1976d2",
+  "icons": [
+    {
+      "src": "/assets/icon/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
