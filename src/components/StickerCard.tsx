@@ -7,9 +7,10 @@ import {
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import { Sticker } from '../utils/stickerLoader';
+import { S3Sticker } from '../utils/s3Service';
 
 interface StickerCardProps {
-  sticker: Sticker;
+  sticker: Sticker | S3Sticker;
   delay?: number;
 }
 
@@ -32,7 +33,7 @@ const StickerCard: React.FC<StickerCardProps> = ({ sticker, delay = 0 }) => {
         >
           <CardMedia
             component="img"
-            image={sticker.url}
+            image={'url' in sticker ? sticker.url : sticker.url}
             alt={sticker.name}
             sx={{
               objectFit: 'contain',
