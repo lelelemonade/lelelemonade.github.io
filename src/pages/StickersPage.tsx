@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { 
-  Box, 
-  Typography, 
-  Grid, 
-  TextField, 
+import {
+  Box,
+  Typography,
+  Grid,
+  TextField,
   InputAdornment,
   Container,
   CircularProgress,
@@ -11,7 +11,7 @@ import {
   CardContent,
   Fab,
   Alert,
-  Snackbar
+  Snackbar, useMediaQuery, useTheme
 } from '@mui/material';
 import { Search as SearchIcon, CloudUpload } from '@mui/icons-material';
 import { motion } from 'framer-motion';
@@ -115,6 +115,9 @@ const StickersPage: React.FC = () => {
     }
   }, [loading, loadingMore, hasMore, nextToken]);
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <Container maxWidth="lg">
       <motion.div
@@ -176,7 +179,8 @@ const StickersPage: React.FC = () => {
               xs={12} 
               sm={6} 
               md={4} 
-              lg={3} 
+              lg={3}
+              sx={{minWidth: isMobile?100:200,flex: 1}}
               key={sticker.id}
               ref={index === filteredStickers.length - 1 ? lastStickerElementRef : undefined}
             >
