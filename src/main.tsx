@@ -18,12 +18,15 @@ ReactDOM.createRoot(rootElement).render(
   </React.StrictMode>,
 )
 
-// Register service worker for PWA
+// Unregister service worker for PWA
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .catch((error) => {
-        console.log('SW registration failed: ', error);
-      });
-  });
+    window.addEventListener('load', async () => {
+        try {
+            const registrations = await navigator.serviceWorker.getRegistrations();
+            await Promise.all(registrations.map((reg) => reg.unregister()));
+            console.log('SW unregistered');
+        } catch (error) {
+            console.log('SW unregistration failed: ', error);
+        }
+    });
 }
