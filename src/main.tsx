@@ -22,7 +22,6 @@ ReactDOM.createRoot(rootElement).render(
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', async () => {
         try {
-
             const registrations = await navigator.serviceWorker.getRegistrations();
             await Promise.all(registrations.map((reg) => reg.unregister()));
             console.log('SW unregistered');
