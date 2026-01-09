@@ -35,7 +35,7 @@ const StickerCard: React.FC<StickerCardProps> = ({ sticker, delay = 0 }) => {
             alt={sticker.name}
             sx={{
               objectFit: 'contain',
-              padding: 5,
+              padding: 2,
               backgroundColor: (theme) => 
                 theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)',
               transition: 'transform 0.5s ease',
