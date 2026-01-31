@@ -114,7 +114,7 @@ const HomePage: React.FC = () => {
                   </Typography>
                   <Typography variant="body1" paragraph sx={{ display: 'flex', alignItems: 'center' }}>
                     <LayersIcon sx={{ mr: 1, color: 'primary.main' }} /> 
-                    Believe in the future of Web3.
+                    Flesh is body, beer is soul.
                   </Typography>
                   <Typography variant="body1" paragraph sx={{ display: 'flex', alignItems: 'center' }}>
                     <SmartToyIcon sx={{ mr: 1, color: 'primary.main' }} /> 
