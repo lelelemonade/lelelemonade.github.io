@@ -1,5 +1,4 @@
-import { S3Client, ListObjectsV2Command, PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { S3Client, ListObjectsV2Command, PutObjectCommand } from '@aws-sdk/client-s3';
 
 export interface S3Credentials {
   access_key_id: string;
@@ -19,7 +18,14 @@ export interface S3Sticker {
 
 const BUCKET_NAME = 'storage-zhongli-dev';
 const STICKERS_PREFIX = 'stickers/';
+/** Public website endpoint (custom domain); objects are served here instead of presigned S3 URLs. */
+const PUBLIC_STORAGE_ORIGIN = 'https://storage.zhongli.dev';
 const CREDENTIALS_API = 'https://jrs3q5jxq5.execute-api.eu-north-1.amazonaws.com/Prod/api-zhongli';
+
+function publicObjectUrl(key: string): string {
+  const path = key.split('/').map(encodeURIComponent).join('/');
+  return `${PUBLIC_STORAGE_ORIGIN}/${path}`;
+}
 
 let s3Client: S3Client | null = null;
 let credentialsCache: S3Credentials | null = null;
@@ -71,32 +77,23 @@ export async function listS3Stickers(continuationToken?: string): Promise<{
 
   const response = await client.send(command);
   
-  const stickers: S3Sticker[] = await Promise.all(
-    (response.Contents || [])
-      .filter(obj => obj.Key && obj.Key !== STICKERS_PREFIX)
-      .map(async obj => {
-        const key = obj.Key!;
-        const fileName = key.replace(STICKERS_PREFIX, '');
-        const name = fileName.substring(0, fileName.lastIndexOf('.')) || fileName;
-        const format = fileName.split('.').pop() || '';
-        
-        // Generate signed URL for download
-        const getCommand = new GetObjectCommand({
-          Bucket: BUCKET_NAME,
-          Key: key,
-        });
-        const signedUrl = await getSignedUrl(client, getCommand, { expiresIn: 3600 });
-        
-        return {
-          id: key,
-          name,
-          url: signedUrl,
-          format,
-          lastModified: obj.LastModified,
-          size: obj.Size,
-        };
-      })
-  );
+  const stickers: S3Sticker[] = (response.Contents || [])
+    .filter(obj => obj.Key && obj.Key !== STICKERS_PREFIX)
+    .map(obj => {
+      const key = obj.Key!;
+      const fileName = key.replace(STICKERS_PREFIX, '');
+      const name = fileName.substring(0, fileName.lastIndexOf('.')) || fileName;
+      const format = fileName.split('.').pop() || '';
+
+      return {
+        id: key,
+        name,
+        url: publicObjectUrl(key),
+        format,
+        lastModified: obj.LastModified,
+        size: obj.Size,
+      };
+    });
 
   return {
     stickers,
@@ -118,20 +115,13 @@ export async function uploadStickerToS3(file: File): Promise<S3Sticker> {
 
   await client.send(command);
 
-  // Generate signed URL for the uploaded file
-  const getCommand = new GetObjectCommand({
-    Bucket: BUCKET_NAME,
-    Key: key,
-  });
-  const signedUrl = await getSignedUrl(client, getCommand, { expiresIn: 3600 });
-
   const name = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
   const format = file.name.split('.').pop() || '';
 
   return {
     id: key,
     name,
-    url: signedUrl,
+    url: publicObjectUrl(key),
     format,
     size: file.size,
   };
