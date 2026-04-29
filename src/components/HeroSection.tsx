@@ -34,21 +34,23 @@ const HeroSection: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+              <Box sx={{ display: 'block', mb: 1 }}>
                 <Typography
                   component="h1"
                   variant="h2"
                   color="white"
                   fontWeight="bold"
                   gutterBottom
-                  sx={{ mr: 1 }}
+                  sx={{ display: 'inline', mr: 1 }}
                 >
                   Hello, I'm ZhongLi Shen(沈仲黎)
                 </Typography>
-                <AudioPlayer 
-                  audioFile="/assets/audio/myname.wav" 
-                  tooltipText="Hear how to pronounce my name"
-                />
+                <Box component="span" sx={{ display: 'inline-flex', verticalAlign: 'middle' }}>
+                  <AudioPlayer
+                    audioFile="/assets/audio/myname.wav"
+                    tooltipText="Hear how to pronounce my name"
+                  />
+                </Box>
               </Box>
             </motion.div>
             
