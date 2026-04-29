@@ -34,6 +34,7 @@ const StickerCard: React.FC<StickerCardProps> = ({ sticker, delay = 0 }) => {
             image={sticker.url}
             alt={sticker.name}
             sx={{
+              aspectRatio: '1 / 1',
               objectFit: 'contain',
               padding: 2,
               backgroundColor: (theme) => 
