@@ -20,12 +20,12 @@ Personal site for **Zhongli** ([zhongli.dev](https://zhongli.dev)), deployed as 
 
 ## Commands
 
-- **Dev:** `npm run dev` (Vite default, typically `http://localhost:5173`)
-- **Production build:** `npm run build` → output in `dist/`
-- **Preview build:** `npm run preview`
-- **Lint:** `npm run lint`
+- **Dev:** `pnpm dev` (Vite default, typically `http://localhost:5173`)
+- **Production build:** `pnpm build` → output in `dist/`
+- **Preview build:** `pnpm preview`
+- **Lint:** `pnpm lint`
 
-CI uses **Node 20** and `npm ci` (see `.github/workflows/deploy.yml`).
+CI uses **Node 24** and `pnpm install --frozen-lockfile` (see `.github/workflows/deploy.yml`).
 
 ## Routing and hosting
 
@@ -79,4 +79,4 @@ Both mount the same **`App`** and router tree; only bootstrap and SW behavior di
 
 - Match existing **MUI + Framer** patterns and component structure in nearby files.
 - Prefer **focused diffs**; avoid unrelated refactors or new docs unless requested.
-- After substantive UI or route changes, run **`npm run build`** locally to catch TypeScript/Vite errors.
+- After substantive UI or route changes, run **`pnpm build`** locally to catch TypeScript/Vite errors.

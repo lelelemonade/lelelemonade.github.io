@@ -14,8 +14,8 @@ This is my personal website built with React and Material UI. It features a resp
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
-- npm or yarn
+- Node.js 24
+- pnpm
 
 ### Development
 
@@ -27,12 +27,12 @@ This is my personal website built with React and Material UI. It features a resp
 
 2. Install dependencies
    ```
-   npm install
+   pnpm install
    ```
 
 3. Start the development server
    ```
-   npm run dev
+   pnpm dev
    ```
 
 4. Open your browser and navigate to `http://localhost:5173`
@@ -41,7 +41,7 @@ This is my personal website built with React and Material UI. It features a resp
 
 1. Build the project
    ```
-   npm run build
+   pnpm build
    ```
 
 2. The build output will be in the `dist` folder, which can be deployed to any static hosting service like GitHub Pages.
