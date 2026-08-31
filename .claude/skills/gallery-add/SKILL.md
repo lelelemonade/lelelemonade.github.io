@@ -6,8 +6,9 @@ description: Adds software to the Gallery section of this site (src/content/gall
 # Adding software to the Gallery
 
 The Gallery is a curated list on [zhongli.dev](https://zhongli.dev/#/gallery) of software worth
-recommending. Each card carries the project's upstream link, the platforms it runs on, its main
-features, a category, a license and a logo.
+recommending. Each card is deliberately thin: a logo, the project's own one-line description, a
+category, the platforms it runs on, whether it is free to use, and links out. There is no feature
+list on the card — the official site owns that, and it stays current there.
 
 Two properties make this section worth doing carefully:
 
@@ -24,8 +25,8 @@ Your job is to turn "add Zed" into a correct, committed entry that builds.
 The vocabularies and the schema live in code, and code is the source of truth — do not rely on the
 lists reproduced anywhere else, including in this file:
 
-- `src/content/gallery/types.ts` — the `Software` type, plus the `CATEGORIES` and `PLATFORMS` keys
-  you are allowed to use. Read it every time; categories get added.
+- `src/content/gallery/types.ts` — the `Software` type, plus the `CATEGORIES`, `PLATFORMS` and
+  `PRICING` keys you are allowed to use. Read it every time; categories get added.
 - `src/content/gallery/index.ts` — the catalog. Match the field order and prose style of the
   entries already there.
 - `src/content/gallery/README.md` — the human-facing version of this workflow, worth a skim if
@@ -63,25 +64,24 @@ From that output:
 - **tagline** — the repo's own `description`, verbatim. It is the project's self-description, it is
   short by construction, and using it means the card cannot overstate what the software does. Only
   write your own if the description is empty or is pure marketing noise.
-- **features** — from the README's own feature list, condensed to short bullets (4–6 is the sweet
-  spot). Prefer what makes this software distinctive over what every tool in its category does.
 - **platforms** — from what the README or release page actually claims. This is the field most often
   gotten wrong from memory: editors add Windows support, Mac-only apps stay Mac-only, and "it's
   Electron so it must be cross-platform" is not evidence. If the README does not say, check the
   releases (`gh release view --json assets`) and infer from the asset extensions.
-- **license** — the SPDX id. `NOASSERTION` from the API means the repo has multiple or non-standard
-  license files; look at what is actually in the repo root and write what you find, e.g.
-  `GPL-3.0 / Apache-2.0`.
+- **pricing** — one of the keys in `PRICING`, answering only "what does it cost to use this?".
+  Check the project's own pricing page, not the license: open source does not imply `free`
+  (Insomnia's cloud tiers are paid) and a paid App Store listing does not imply `paid` when the
+  GitHub build is free. `freemium` is for anything with a real free tier plus paid upgrades —
+  Telegram Premium, seat-based team plans, an AI subscription bolted onto a free editor. When the
+  free tier is crippled enough that nobody would use it, that is `paid`, and say so to the user.
 - **category** — one of the keys in `CATEGORIES`. If nothing fits, propose a new key to the user
   before adding it; a category with one member forever is worse than a slightly loose fit, and the
   filter chips only render categories that have entries.
-- **note** — optional, and this is the one field that is allowed to be opinionated, because it is
-  the user's voice: why this made the list. Write a draft in their register (the existing notes are
-  dry, specific, first-person) and let them redo it.
 
-Where a project's story has a caveat a reader would want — a proprietary server behind open-source
-clients, an account requirement, a license that is not what people assume — put it in the `note`.
-The Gallery is a recommendation, not an advertisement, and the existing entries do this.
+The card has no field for caveats any more. Where a project's story has one a reader would want — a
+proprietary server behind open-source clients, an account requirement, a paid tier that turns out to
+be the only usable one — raise it with the user when you report, so they can decide whether the
+entry belongs at all. The Gallery is a recommendation, not an advertisement.
 
 ### 3. Pick and download the logo
 
@@ -123,8 +123,9 @@ The `id` is a lowercase slug, unique in the file, and it is what the logo file i
 pnpm build && pnpm lint
 ```
 
-The build is a real check here, not a formality: `CategoryId` and `PlatformId` are string-literal
-unions, so a mistyped category or platform fails compilation rather than rendering something wrong.
+The build is a real check here, not a formality: `CategoryId`, `PlatformId` and `PricingId` are
+string-literal unions, so a mistyped category, platform or pricing key fails compilation rather than
+rendering something wrong.
 
 The build cannot catch a logo that silently failed to resolve, though — a filename that does not
 match the `logo` field just yields a letter tile. Confirm the logo made it into the bundle:
@@ -141,9 +142,9 @@ a logo that renders badly — a dark icon on a dark tile, or a wordmark squeezed
 
 ### 6. Report
 
-Summarize as a table: name, category, platforms, license, logo source. Then state plainly which
+Summarize as a table: name, category, platforms, pricing, logo source. Then state plainly which
 facts came from where, and flag any judgment call you made — a chosen repo among several, a new
-category, a caveat you put in the note, a logo bigger than you wanted. The user is the one
+category, a pricing call that was not clear-cut, a logo bigger than you wanted. The user is the one
 committing this; they should not have to re-derive your reasoning to review it.
 
 ## Handling several at once
@@ -157,9 +158,11 @@ pass, and the build is the same cost for one entry or six.
 
 - **Do not fill fields from memory.** You probably do know what ripgrep does. The failure mode is
   not ignorance, it is confident staleness — Zed shipped Windows, Insomnia changed its storage
-  model, licenses get relaunched. Read the repo.
-- **Do not pad the feature list.** Six sharp bullets beat ten that include "cross-platform" and
-  "actively maintained".
+  model, free tools get relaunched behind a paywall. Read the repo.
+- **Do not read `pricing` off the license.** GPL software can require a paid account, and free
+  binaries ship under proprietary licenses. Check what the project charges.
+- **Do not reintroduce a feature list.** The card intentionally does not have one; anything longer
+  than the tagline belongs on the project's own site.
 - **Do not hotlink a logo.** The whole section is static by design; a remote `<img src>` breaks that
   and rots.
 - **Do not invent a category to avoid asking.** Adding a key to `CATEGORIES` changes the site's

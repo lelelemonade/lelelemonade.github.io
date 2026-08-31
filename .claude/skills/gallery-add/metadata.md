@@ -25,11 +25,11 @@
 ## AI Business Case
 
 The Gallery section of [zhongli.dev](https://zhongli.dev) recommends software, and every card makes
-factual claims about someone else's project: which platforms it runs on, what it does, how it is
-licensed. Adding an entry by hand means looking those facts up in the upstream repo, finding and
+factual claims about someone else's project: which platforms it runs on, what it does, whether it is
+free. Adding an entry by hand means looking those facts up in the upstream repo, finding and
 downloading a logo, and fitting the result to a typed schema — tedious enough that the tempting
 shortcut is to fill the fields from memory. That shortcut is exactly what produces a site full of
-quietly wrong claims, because model recall of a project's platform support and license goes stale
+quietly wrong claims, because model recall of a project's platform support and pricing goes stale
 faster than anything else on the card.
 
 This skill makes the correct path the fast one: one command gathers the real metadata, the logo
@@ -38,8 +38,9 @@ malformed before it ships.
 
 ### Key Benefits
 
-- **Facts trace to the source:** taglines are the project's own repo description and features come
-  from its README, so entries are auditable rather than recalled.
+- **Facts trace to the source:** taglines are the project's own repo description and platform and
+  pricing claims come from the repo and its pricing page, so entries are auditable rather than
+  recalled.
 - **One-pass logo handling:** candidate icons are surfaced with sizes and the correct default-branch
   raw URL, which removes the two things that actually go wrong — picking a wordmark for a square
   tile, and 404ing on the wrong branch.

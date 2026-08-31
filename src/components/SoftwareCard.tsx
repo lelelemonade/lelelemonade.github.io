@@ -21,7 +21,7 @@ import {
   Window as WindowsIcon,
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
-import { CATEGORIES, PLATFORMS, PlatformId } from '../content/gallery/types';
+import { CATEGORIES, PLATFORMS, PRICING, PlatformId, PricingId } from '../content/gallery/types';
 import { GallerySoftware } from '../utils/galleryLoader';
 
 const platformIcons: Record<PlatformId, React.ReactNode> = {
@@ -32,6 +32,20 @@ const platformIcons: Record<PlatformId, React.ReactNode> = {
   android: <AndroidIcon fontSize="small" />,
   web: <WebIcon fontSize="small" />,
   cli: <CliIcon fontSize="small" />,
+};
+
+// Deliberately not blue: the category chip already owns `primary`, and two blue
+// chips side by side read as one control.
+const pricingColors: Record<PricingId, 'success' | 'warning' | 'default'> = {
+  free: 'success',
+  freemium: 'warning',
+  paid: 'default',
+};
+
+const pricingHints: Record<PricingId, string> = {
+  free: 'Free to use',
+  freemium: 'Free to use, with paid tiers on top',
+  paid: 'Paid, with at most a trial',
 };
 
 interface SoftwareCardProps {
@@ -102,32 +116,16 @@ const SoftwareCard: React.FC<SoftwareCardProps> = ({ software, delay = 0 }) => {
                 variant="outlined"
               />
             ))}
-            {software.license && (
-              <Tooltip title="License">
-                <Chip label={software.license} size="small" variant="outlined" />
-              </Tooltip>
-            )}
+            <Tooltip title={pricingHints[software.pricing]}>
+              <Chip
+                label={PRICING[software.pricing]}
+                size="small"
+                color={pricingColors[software.pricing]}
+              />
+            </Tooltip>
           </Box>
 
           <Divider sx={{ mb: 2 }} />
-
-          <Box component="ul" sx={{ m: 0, pl: 2.5, mb: 2 }}>
-            {software.features.map((feature) => (
-              <Typography key={feature} component="li" variant="body2" sx={{ mb: 0.5 }}>
-                {feature}
-              </Typography>
-            ))}
-          </Box>
-
-          {software.note && (
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ fontStyle: 'italic', mb: 2 }}
-            >
-              {software.note}
-            </Typography>
-          )}
 
           <Box sx={{ mt: 'auto', display: 'flex', flexWrap: 'wrap', gap: 1 }}>
             <Button
