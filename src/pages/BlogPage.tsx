@@ -129,12 +129,14 @@ const BlogPage: React.FC = () => {
           placeholder="Search blog posts..."
           value={searchTerm}
           onChange={handleSearchChange}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            },
           }}
           sx={{ mb: 3 }}
         />
@@ -162,7 +164,7 @@ const BlogPage: React.FC = () => {
         <>
           <Grid container spacing={3}>
             {currentPosts.map((post, index) => (
-              <Grid item xs={12} sm={6} md={4} key={post.id}>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }} key={post.id}>
                 <AnimatedCard
                   title={post.title}
                   date={post.date}
