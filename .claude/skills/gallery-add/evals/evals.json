@@ -1,0 +1,60 @@
+{
+  "skill_name": "gallery-add",
+  "evals": [
+    {
+      "id": 1,
+      "name": "url-happy-path",
+      "prompt": "add https://github.com/ghostty-org/ghostty to the gallery",
+      "expected_output": "A ghostty entry appended to src/content/gallery/index.ts with the repo's own description as the tagline, accurate platforms, a valid category key, the repo's license, and 4-6 features drawn from the README. Its logo downloaded into src/content/gallery/logos/. pnpm build and pnpm lint pass.",
+      "files": [],
+      "assertions": [
+        "A new entry was appended to the gallery array in src/content/gallery/index.ts with id, name, tagline, category, platforms, upstream and features all populated",
+        "The tagline is the upstream repo's own GitHub description, verbatim (not a rewritten or embellished version)",
+        "The category is an existing key of CATEGORIES in src/content/gallery/types.ts, or a new key was properly added to types.ts rather than used inline",
+        "Every platform listed is a valid PlatformId key and is supported by what the upstream repo actually documents — Windows is not claimed unless the repo documents Windows support",
+        "The features list has between 3 and 7 bullets and each one is traceable to the upstream README rather than general knowledge",
+        "pnpm build completes successfully",
+        "pnpm lint reports no errors",
+        "If the entry sets a logo field, a file with exactly that name exists in src/content/gallery/logos/; if it omits logo, no orphan logo file was added",
+        "No pre-existing gallery entry was modified or removed — the diff to index.ts is additive"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "name-only-no-icon",
+      "prompt": "can you add bat to the gallery — the cat clone with syntax highlighting and git integration",
+      "expected_output": "The name resolved to sharkdp/bat (not a namesake or fork). Entry appended with accurate cross-platform support and a CLI platform tag. The repo has no square app icon, so either a suitable asset is found and justified, or the logo field is omitted so the card falls back to a letter tile — but never a dangling logo reference. pnpm build and pnpm lint pass.",
+      "files": [],
+      "assertions": [
+        "The ambiguous name 'bat' was resolved to the sharkdp/bat repository, not a fork or unrelated project of the same name",
+        "A new entry was appended to the gallery array with id, name, tagline, category, platforms, upstream and features all populated",
+        "The tagline is the upstream repo's own GitHub description, verbatim",
+        "The platforms list includes 'cli' and reflects bat's actual cross-platform support",
+        "The category is an existing key of CATEGORIES, or a new key was properly added to types.ts",
+        "pnpm build completes successfully",
+        "pnpm lint reports no errors",
+        "There is no dangling logo reference: either the logo field is omitted (letter-tile fallback) or the named file exists in src/content/gallery/logos/",
+        "The run states where the logo came from, or explains why the logo field was omitted, rather than leaving it unexplained"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "batch-closed-source",
+      "prompt": "add rectangle and raycast to the gallery",
+      "expected_output": "Both entries added in one pass with a single batched build. Rectangle resolves to rxhanson/Rectangle. Raycast has no upstream source repo (only raycast/extensions), so the entry should use the homepage as upstream and say so, rather than passing off an unrelated repo as the project's source. pnpm build and pnpm lint pass.",
+      "files": [],
+      "assertions": [
+        "Two new entries were appended to the gallery array, one for Rectangle and one for Raycast",
+        "Rectangle's upstream points at the rxhanson/Rectangle repository",
+        "Raycast's entry does not present an unrelated repo (e.g. raycast/extensions) as the application's own source — it either uses the homepage as upstream or explicitly explains what the linked repo is",
+        "The report or entry note discloses that Raycast is not open source, rather than implying it is",
+        "Each entry's tagline comes from the project's own description rather than being invented",
+        "Every platform listed is a valid PlatformId key and matches what each project documents",
+        "pnpm build completes successfully",
+        "pnpm lint reports no errors",
+        "Neither entry has a dangling logo reference: any logo field names a file that exists in src/content/gallery/logos/",
+        "The work was batched — metadata gathered for both projects before writing, with a single verification build at the end rather than one build per project"
+      ]
+    }
+  ]
+}
