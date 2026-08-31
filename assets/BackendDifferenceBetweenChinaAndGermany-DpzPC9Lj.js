@@ -1,4 +1,4 @@
-const e=`---
+var e=`---
 layout: post
 title: Backend difference between China and Germany
 date: 2024-09-22 20:09:16

@@ -1,4 +1,4 @@
-const n=`---
+var e=`---
 layout: post
 title: Struggling finding job
 date: 2024-09-23 18:40:00-0400
@@ -7,4 +7,4 @@ related_posts: false
 ---
 
 Still looking for job.
-`;export{n as default};
+`;export{e as default};
