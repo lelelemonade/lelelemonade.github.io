@@ -54,7 +54,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, del
           >
             {icon}
           </Box>
-          <Typography variant="h6" component="h3" fontWeight="500">
+          <Typography variant="h6" component="h3" sx={{ fontWeight: 500 }}>
             {title}
           </Typography>
         </Box>

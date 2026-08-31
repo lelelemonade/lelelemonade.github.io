@@ -139,7 +139,7 @@ const BlogPostPage: React.FC = () => {
             sx={{ width: 48, height: 48, mr: 2 }}
           />
           <Box>
-            <Typography variant="subtitle1" fontWeight="medium">
+            <Typography variant="subtitle1" sx={{ fontWeight: 'medium' }}>
               ZhongLi Shen
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', color: 'text.secondary' }}>
@@ -176,7 +176,7 @@ const BlogPostPage: React.FC = () => {
             </Typography>
             <Grid container spacing={3}>
               {relatedPosts.map((relatedPost) => (
-                <Grid item xs={12} md={4} key={relatedPost.id}>
+                <Grid size={{ xs: 12, md: 4 }} key={relatedPost.id}>
                   <Card 
                     component={Link} 
                     to={relatedPost.path} 

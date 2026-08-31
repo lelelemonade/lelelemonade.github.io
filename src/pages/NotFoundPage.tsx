@@ -58,7 +58,7 @@ const NotFoundPage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <Typography variant="body1" paragraph sx={{ mb: 4, maxWidth: '600px' }}>
+          <Typography variant="body1" component="p" sx={{ mb: 4, maxWidth: '600px' }}>
             The page you are looking for might have been removed, had its name changed,
             or is temporarily unavailable.
           </Typography>

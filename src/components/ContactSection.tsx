@@ -114,9 +114,9 @@ const ContactSection: React.FC = () => {
 
                     <Typography
                         variant="h6"
+                        component="p"
                         align="center"
                         color="text.secondary"
-                        paragraph
                         sx={{maxWidth: 700, mx: 'auto', mb: 6}}
                     >
                         Feel free to reach out to me through any of these platforms. I'm always open to discussing new
@@ -124,9 +124,9 @@ const ContactSection: React.FC = () => {
                     </Typography>
                 </motion.div>
 
-                <Grid container spacing={3} justifyContent="center">
+                <Grid container spacing={3} sx={{justifyContent: 'center'}}>
                     {socialLinks.map((link, index) => (
-                        <Grid item key={link.name}>
+                        <Grid key={link.name}>
                             <motion.div
                                 initial={{opacity: 0, y: 20}}
                                 whileInView={{opacity: 1, y: 0}}
@@ -168,7 +168,7 @@ const ContactSection: React.FC = () => {
                                             {link.icon}
                                         </IconButton>
                                     </Tooltip>
-                                    <Typography variant="body2" fontWeight="medium">
+                                    <Typography variant="body2" sx={{fontWeight: 'medium'}}>
                                         {link.name}
                                     </Typography>
                                 </Paper>

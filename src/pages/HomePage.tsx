@@ -93,34 +93,34 @@ const HomePage: React.FC = () => {
           </motion.div>
           
           <Grid container spacing={4}>
-            <Grid item xs={12} md={7}>
+            <Grid size={{ xs: 12, md: 7 }}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <Box sx={{ pl: 2, borderLeft: '3px solid', borderColor: 'primary.main' }}>
-                  <Typography variant="body1" paragraph sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography variant="body1" component="p" sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                     <CodeIcon sx={{ mr: 1, color: 'primary.main' }} /> 
                     Super experienced backend software engineer.
                   </Typography>
-                  <Typography variant="body1" paragraph sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography variant="body1" component="p" sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                     <StorageIcon sx={{ mr: 1, color: 'primary.main' }} /> 
                     Manage large scale distributed systems and high performance application.
                   </Typography>
-                  <Typography variant="body1" paragraph sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography variant="body1" component="p" sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                     <EngineeringIcon sx={{ mr: 1, color: 'primary.main' }} /> 
                     Know how to make things done, and know under the hood.
                   </Typography>
-                  <Typography variant="body1" paragraph sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography variant="body1" component="p" sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                     <LayersIcon sx={{ mr: 1, color: 'primary.main' }} /> 
                     Flesh is body, beer is soul.
                   </Typography>
-                  <Typography variant="body1" paragraph sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography variant="body1" component="p" sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                     <SmartToyIcon sx={{ mr: 1, color: 'primary.main' }} /> 
                     Interested in using AI product, but not figure out how AI works.
                   </Typography>
-                  <Typography variant="body1" paragraph sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography variant="body1" component="p" sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                     <BoltIcon sx={{ mr: 1, color: 'primary.main' }} /> 
                     I do things first, without thinking consequences.
                   </Typography>
@@ -128,7 +128,7 @@ const HomePage: React.FC = () => {
               </motion.div>
             </Grid>
             
-            <Grid item xs={12} md={5}>
+            <Grid size={{ xs: 12, md: 5 }}>
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -207,7 +207,7 @@ const HomePage: React.FC = () => {
           ) : latestBlogs.length > 0 ? (
             <Grid container spacing={3}>
               {latestBlogs.map((post, index) => (
-                <Grid item xs={12} sm={6} md={4} key={post.id}>
+                <Grid size={{ xs: 12, sm: 6, md: 4 }} key={post.id}>
                   <AnimatedCard
                     title={post.title}
                     date={post.date}
@@ -268,7 +268,7 @@ const HomePage: React.FC = () => {
           ) : latestNews.length > 0 ? (
             <Grid container spacing={3}>
               {latestNews.map((post, index) => (
-                <Grid item xs={12} sm={6} md={4} key={post.id}>
+                <Grid size={{ xs: 12, sm: 6, md: 4 }} key={post.id}>
                   <AnimatedCard
                     title={post.title}
                     date={post.date}

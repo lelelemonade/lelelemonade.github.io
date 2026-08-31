@@ -103,7 +103,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, frontmatte
               <Typography variant="h6" gutterBottom {...props} sx={{ mt: 2, mb: 1 }} />
             ),
             p: (props) => (
-              <Typography variant="body1" paragraph {...props} sx={{ mb: 2 }} />
+              <Typography variant="body1" component="p" {...props} sx={{ mb: 2 }} />
             ),
             code: ({ inline, className, children, ...props }: CodeProps) => {
               const match = /language-(\w+)/.exec(className || '');

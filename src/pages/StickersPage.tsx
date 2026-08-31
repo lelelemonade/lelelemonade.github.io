@@ -156,12 +156,14 @@ const StickersPage: React.FC = () => {
           placeholder="Search stickers..."
           value={searchTerm}
           onChange={handleSearchChange}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            },
           }}
           sx={{ mb: 3 }}
         />
@@ -174,12 +176,8 @@ const StickersPage: React.FC = () => {
       ) : filteredStickers.length > 0 ? (
         <Grid container spacing={3}>
           {filteredStickers.map((sticker, index) => (
-            <Grid 
-              item 
-              xs={12} 
-              sm={6} 
-              md={4} 
-              lg={3}
+            <Grid
+              size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
               sx={{minWidth: isMobile?100:200,flex: 1}}
               key={sticker.id}
               ref={index === filteredStickers.length - 1 ? lastStickerElementRef : undefined}
@@ -188,7 +186,7 @@ const StickersPage: React.FC = () => {
             </Grid>
           ))}
           {loadingMore && (
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
                 <CircularProgress size={30} />
               </Box>

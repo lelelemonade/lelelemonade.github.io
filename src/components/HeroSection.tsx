@@ -38,10 +38,8 @@ const HeroSection: React.FC = () => {
                 <Typography
                   component="h1"
                   variant="h2"
-                  color="white"
-                  fontWeight="bold"
                   gutterBottom
-                  sx={{ display: 'inline', mr: 1 }}
+                  sx={{ display: 'inline', mr: 1, fontWeight: 'bold', color: 'white' }}
                 >
                   Hello, I'm ZhongLi Shen(沈仲黎)
                 </Typography>
@@ -61,9 +59,8 @@ const HeroSection: React.FC = () => {
             >
               <Typography
                 variant="h5"
-                color="white"
-                paragraph
-                sx={{ mb: 4, opacity: 0.9 }}
+                component="p"
+                sx={{ mb: 4, opacity: 0.9, color: 'white' }}
               >
                 Welcome to my personal website where I share my journey, thoughts, and experiences.
               </Typography>
