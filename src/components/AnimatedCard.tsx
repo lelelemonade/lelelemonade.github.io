@@ -29,6 +29,7 @@ const AnimatedCard: React.FC<AnimatedCardProps> = ({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: delay * 0.1 }}
       whileHover={{ scale: 1.03 }}
+      style={{ height: '100%' }}
     >
       <Card 
         component={Link} 

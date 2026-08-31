@@ -1,12 +1,11 @@
 import React from 'react';
-import {Box, Typography, Container, IconButton, Paper, Tooltip, Grid} from '@mui/material';
+import {Box, Typography, Container, IconButton, Paper, Tooltip, Grid, useTheme} from '@mui/material';
 import {motion} from 'framer-motion';
 import {
     Email as EmailIcon,
     GitHub as GitHubIcon,
     LinkedIn as LinkedInIcon
 } from '@mui/icons-material';
-import {useTheme} from '../hooks/useTheme';
 
 // Discord icon SVG component
 const DiscordIcon: React.FC = () => {
@@ -47,7 +46,8 @@ interface SocialLink {
 }
 
 const ContactSection: React.FC = () => {
-    const {mode} = useTheme();
+    // Read the mode from the active MUI theme so the section re-renders on toggle
+    const {palette: {mode}} = useTheme();
 
     const socialLinks: SocialLink[] = [
         {
@@ -158,7 +158,7 @@ const ContactSection: React.FC = () => {
                                             rel="noopener noreferrer"
                                             aria-label={link.name}
                                             sx={{
-                                                color: mode === 'dark' ? link.color : link.color,
+                                                color: link.color,
                                                 mb: 1,
                                                 '&:hover': {
                                                     backgroundColor: 'rgba(0,0,0,0.04)'
