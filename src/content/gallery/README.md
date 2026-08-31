@@ -25,28 +25,38 @@ src/content/gallery/
      tagline: 'Recursively search directories for a regex pattern, fast.',
      category: 'developer-tools',                     // key of CATEGORIES in types.ts
      platforms: ['macos', 'linux', 'windows', 'cli'], // keys of PLATFORMS in types.ts
+     pricing: 'free',                                 // key of PRICING in types.ts
      upstream: 'https://github.com/BurntSushi/ripgrep', // prefer the GitHub repo
      website: 'https://example.com',                  // optional
-     license: 'MIT',                                  // optional, SPDX id
      logo: 'ripgrep.svg',                             // optional, file in logos/
-     features: [                                      // keep bullets short
-       'Respects .gitignore by default',
-       'Unicode-aware and multiline search',
-     ],
-     note: 'Why it made the list.',                   // optional
    }
    ```
 
-3. Run `pnpm build` (or `pnpm dev`) — TypeScript catches unknown categories and platforms.
+3. Run `pnpm build` (or `pnpm dev`) — TypeScript catches unknown categories, platforms
+   and pricing values.
 
 Entries render sorted by name, so the order in `index.ts` does not matter.
 
-## Adding a category or platform
+Cards deliberately carry no feature list: they point at the upstream repo and the
+official site, which is where an up-to-date feature list lives.
 
-Add the key/label pair to `CATEGORIES` or `PLATFORMS` in `types.ts`. For a platform,
-also add it to `PLATFORM_ORDER` (chip display order) and map an icon for it in
-[`src/components/SoftwareCard.tsx`](../../components/SoftwareCard.tsx). Category filter
-chips are derived automatically and only appear once a category has entries.
+## Pricing
+
+`pricing` answers one question — what does it cost to actually use this?
+
+| Value      | Chip        | Means                                              |
+| ---------- | ----------- | -------------------------------------------------- |
+| `free`     | `Free`      | Fully usable at no cost, forever.                   |
+| `freemium` | `Free tier` | Usable for free, with paid tiers on top.            |
+| `paid`     | `Paid`      | Costs money; a trial at most.                       |
+
+## Adding a category, platform or pricing tier
+
+Add the key/label pair to `CATEGORIES`, `PLATFORMS` or `PRICING` in `types.ts`. For a
+platform, also add it to `PLATFORM_ORDER` (chip display order) and map an icon for it in
+[`src/components/SoftwareCard.tsx`](../../components/SoftwareCard.tsx); for a pricing
+tier, map a chip color and tooltip hint in the same file. Category filter chips are
+derived automatically and only appear once a category has entries.
 
 ## Logos and trademarks
 

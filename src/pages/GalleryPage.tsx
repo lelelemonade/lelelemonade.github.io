@@ -28,9 +28,7 @@ const GalleryPage: React.FC = () => {
 
     return software.filter((item) => {
       const matchesSearch =
-        item.name.toLowerCase().includes(term) ||
-        item.tagline.toLowerCase().includes(term) ||
-        item.features.some((feature) => feature.toLowerCase().includes(term));
+        item.name.toLowerCase().includes(term) || item.tagline.toLowerCase().includes(term);
 
       const matchesCategory =
         selectedCategories.length === 0 || selectedCategories.includes(item.category);
@@ -82,7 +80,8 @@ const GalleryPage: React.FC = () => {
 
       <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
         Software I actually use and think is really good — with its upstream project, the
-        platforms it runs on and what it does well.
+        platforms it runs on and whether it is free. Head to the official site for the
+        feature list.
       </Typography>
 
       <Box sx={{ mb: 4 }}>

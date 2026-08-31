@@ -30,6 +30,16 @@ export const PLATFORMS = {
 
 export type PlatformId = keyof typeof PLATFORMS;
 
+// What it costs to actually use the thing. `freemium` means the free tier is
+// usable on its own but some features sit behind a subscription.
+export const PRICING = {
+  free: 'Free',
+  freemium: 'Free tier',
+  paid: 'Paid',
+} as const;
+
+export type PricingId = keyof typeof PRICING;
+
 // Display order for platform chips, independent of how entries list them.
 export const PLATFORM_ORDER: PlatformId[] = [
   'macos',
@@ -49,19 +59,15 @@ export interface Software {
   tagline: string;
   category: CategoryId;
   platforms: PlatformId[];
+  /** Whether it is free to use. */
+  pricing: PricingId;
   /** Official upstream — a GitHub repo whenever the project has one. */
   upstream: string;
   /** Homepage, when it differs from the upstream repo. */
   website?: string;
-  /** SPDX identifier, or a short label like "Proprietary". */
-  license?: string;
-  /** Bullet list of the main features. Keep each one short. */
-  features: string[];
   /**
    * File name inside `src/content/gallery/logos/` (e.g. `vorssaint.svg`).
    * Omit it and the card falls back to a letter tile.
    */
   logo?: string;
-  /** Why it made the list. Optional personal note. */
-  note?: string;
 }
