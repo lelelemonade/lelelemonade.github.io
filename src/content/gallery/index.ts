@@ -194,4 +194,16 @@ export const gallery: Software[] = [
     website: 'https://rxresu.me',
     logo: 'reactive-resume.png',
   },
+  {
+    id: 'microsoft-activation-scripts',
+    name: 'Microsoft Activation Scripts',
+    tagline:
+        'Open-source Windows and Office activator featuring HWID, Ohook, TSforge, and Online KMS activation methods, along with advanced troubleshooting.',
+    category: 'utilities',
+    platforms: ['windows'],
+    pricing: 'free',
+    upstream: 'https://github.com/massgravel/Microsoft-Activation-Scripts',
+    website: 'https://massgrave.dev/',
+    logo: 'MAS.png',
+  },
 ];
