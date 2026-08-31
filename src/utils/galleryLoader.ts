@@ -3,7 +3,14 @@
  */
 
 import { gallery } from '../content/gallery';
-import { CATEGORIES, CategoryId, PLATFORM_ORDER, Software } from '../content/gallery/types';
+import {
+  CATEGORIES,
+  CategoryId,
+  PLATFORM_ORDER,
+  PLATFORMS,
+  PlatformId,
+  Software,
+} from '../content/gallery/types';
 
 // Vite fingerprints and copies every file in logos/ at build time, so logos stay
 // local to the repo instead of being fetched from a third party at runtime.
@@ -41,4 +48,15 @@ export function getCategories(items: GallerySoftware[]): { id: CategoryId; label
       count: items.filter((item) => item.category === id).length,
     }))
     .filter((category) => category.count > 0);
+}
+
+/** Platforms that actually have entries, with their counts, in display order. */
+export function getPlatforms(items: GallerySoftware[]): { id: PlatformId; label: string; count: number }[] {
+  return PLATFORM_ORDER
+    .map((id) => ({
+      id,
+      label: PLATFORMS[id],
+      count: items.filter((item) => item.platforms.includes(id)).length,
+    }))
+    .filter((platform) => platform.count > 0);
 }

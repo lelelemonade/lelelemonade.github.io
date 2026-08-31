@@ -54,9 +54,10 @@ official site, which is where an up-to-date feature list lives.
 
 Add the key/label pair to `CATEGORIES`, `PLATFORMS` or `PRICING` in `types.ts`. For a
 platform, also add it to `PLATFORM_ORDER` (chip display order) and map an icon for it in
-[`src/components/SoftwareCard.tsx`](../../components/SoftwareCard.tsx); for a pricing
-tier, map a chip color and tooltip hint in the same file. Category filter chips are
-derived automatically and only appear once a category has entries.
+[`src/components/platformIcons.tsx`](../../components/platformIcons.tsx), which both the
+cards and the platform filter read; for a pricing tier, map a chip color and tooltip hint
+in [`src/components/SoftwareCard.tsx`](../../components/SoftwareCard.tsx). Category and
+platform filter chips are derived automatically and only appear once they have entries.
 
 ## Logos and trademarks
 

@@ -13,15 +13,18 @@ import {
 import { Search as SearchIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import SoftwareCard from '../components/SoftwareCard';
-import { CategoryId } from '../content/gallery/types';
-import { getCategories, getGallery } from '../utils/galleryLoader';
+import { platformIcons } from '../components/platformIcons';
+import { CategoryId, PlatformId } from '../content/gallery/types';
+import { getCategories, getGallery, getPlatforms } from '../utils/galleryLoader';
 
 const GalleryPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedCategories, setSelectedCategories] = useState<CategoryId[]>([]);
+  const [selectedPlatforms, setSelectedPlatforms] = useState<PlatformId[]>([]);
 
   const software = useMemo(() => getGallery(), []);
   const categories = useMemo(() => getCategories(software), [software]);
+  const platforms = useMemo(() => getPlatforms(software), [software]);
 
   const filteredSoftware = useMemo(() => {
     const term = searchTerm.toLowerCase();
@@ -33,9 +36,14 @@ const GalleryPage: React.FC = () => {
       const matchesCategory =
         selectedCategories.length === 0 || selectedCategories.includes(item.category);
 
-      return matchesSearch && matchesCategory;
+      // An entry matches when it runs on *any* of the selected platforms.
+      const matchesPlatform =
+        selectedPlatforms.length === 0 ||
+        selectedPlatforms.some((platform) => item.platforms.includes(platform));
+
+      return matchesSearch && matchesCategory && matchesPlatform;
     });
-  }, [software, searchTerm, selectedCategories]);
+  }, [software, searchTerm, selectedCategories, selectedPlatforms]);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(event.target.value);
@@ -44,6 +52,12 @@ const GalleryPage: React.FC = () => {
   const handleCategoryClick = (category: CategoryId): void => {
     setSelectedCategories((prev) =>
       prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category]
+    );
+  };
+
+  const handlePlatformClick = (platform: PlatformId): void => {
+    setSelectedPlatforms((prev) =>
+      prev.includes(platform) ? prev.filter((p) => p !== platform) : [...prev, platform]
     );
   };
 
@@ -104,16 +118,41 @@ const GalleryPage: React.FC = () => {
         />
 
         {categories.length > 0 && (
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-            {categories.map((category) => (
-              <Chip
-                key={category.id}
-                label={`${category.label} (${category.count})`}
-                clickable
-                color={selectedCategories.includes(category.id) ? 'primary' : 'default'}
-                onClick={() => handleCategoryClick(category.id)}
-              />
-            ))}
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="overline" color="text.secondary" sx={{ display: 'block' }}>
+              Category
+            </Typography>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+              {categories.map((category) => (
+                <Chip
+                  key={category.id}
+                  label={`${category.label} (${category.count})`}
+                  clickable
+                  color={selectedCategories.includes(category.id) ? 'primary' : 'default'}
+                  onClick={() => handleCategoryClick(category.id)}
+                />
+              ))}
+            </Box>
+          </Box>
+        )}
+
+        {platforms.length > 0 && (
+          <Box>
+            <Typography variant="overline" color="text.secondary" sx={{ display: 'block' }}>
+              Platform
+            </Typography>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+              {platforms.map((platform) => (
+                <Chip
+                  key={platform.id}
+                  icon={platformIcons[platform.id]}
+                  label={`${platform.label} (${platform.count})`}
+                  clickable
+                  color={selectedPlatforms.includes(platform.id) ? 'primary' : 'default'}
+                  onClick={() => handlePlatformClick(platform.id)}
+                />
+              ))}
+            </Box>
           </Box>
         )}
       </Box>
@@ -133,7 +172,7 @@ const GalleryPage: React.FC = () => {
               No software found
             </Typography>
             <Typography variant="body1">
-              {searchTerm || selectedCategories.length > 0
+              {searchTerm || selectedCategories.length > 0 || selectedPlatforms.length > 0
                 ? 'Try adjusting your search or filters.'
                 : 'Add entries to src/content/gallery/index.ts to see them here.'}
             </Typography>
