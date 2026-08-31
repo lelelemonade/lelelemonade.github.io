@@ -45,7 +45,7 @@ Both mount the same **`App`** and router tree; only bootstrap and SW behavior di
 
 | Path | Role |
 |------|------|
-| `src/App.tsx` | Route table: `/`, `blog`, `blog/:id`, `news`, `news/:id`, `stickers`, catch-all |
+| `src/App.tsx` | Route table: `/`, `blog`, `blog/:id`, `news`, `news/:id`, `stickers`, `gallery`, catch-all |
 | `src/layouts/MainLayout.tsx` | Shared chrome around pages |
 | `src/pages/*.tsx` | Page components |
 | `src/components/*.tsx` | Reusable UI (e.g. `MarkdownRenderer`, `StickerCard`, `UploadDialog`) |
@@ -55,6 +55,8 @@ Both mount the same **`App`** and router tree; only bootstrap and SW behavior di
 | `src/utils/markdownLoader.ts` | Blog/news: `import.meta.glob` over markdown, YAML frontmatter |
 | `src/utils/s3Service.ts` | S3 list/upload for stickers (temporary creds from HTTP API) |
 | `src/utils/stickerLoader.ts` | Sticker loading helpers |
+| `src/utils/galleryLoader.ts` | Gallery: resolves the static software catalog + bundled logo URLs |
+| `src/content/gallery/` | Recommended-software catalog (`index.ts`), vocabularies (`types.ts`), `logos/` — see its `README.md` |
 | `src/content/blogs/*.md` | Blog posts (filename = post `id` in routes) |
 | `src/content/news/*.md` | News posts (same idea) |
 | `public/` | Static assets served as-is |
