@@ -5,6 +5,10 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: './',
+  // Honour PORT so several worktrees can run `pnpm dev` side by side.
+  server: {
+    port: Number(process.env.PORT) || 5173,
+  },
   build: {
     rollupOptions: {
       input: {

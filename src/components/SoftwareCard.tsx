@@ -10,29 +10,14 @@ import {
   Typography,
 } from '@mui/material';
 import {
-  Android as AndroidIcon,
-  Apple as AppleIcon,
   GitHub as GitHubIcon,
   Language as WebIcon,
-  Laptop as LinuxIcon,
   OpenInNew as OpenInNewIcon,
-  PhoneIphone as IosIcon,
-  Terminal as CliIcon,
-  Window as WindowsIcon,
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
-import { CATEGORIES, PLATFORMS, PRICING, PlatformId, PricingId } from '../content/gallery/types';
+import { CATEGORIES, PLATFORMS, PRICING, PricingId } from '../content/gallery/types';
 import { GallerySoftware } from '../utils/galleryLoader';
-
-const platformIcons: Record<PlatformId, React.ReactNode> = {
-  macos: <AppleIcon fontSize="small" />,
-  windows: <WindowsIcon fontSize="small" />,
-  linux: <LinuxIcon fontSize="small" />,
-  ios: <IosIcon fontSize="small" />,
-  android: <AndroidIcon fontSize="small" />,
-  web: <WebIcon fontSize="small" />,
-  cli: <CliIcon fontSize="small" />,
-};
+import { platformIcons } from './platformIcons';
 
 // Deliberately not blue: the category chip already owns `primary`, and two blue
 // chips side by side read as one control.
@@ -110,7 +95,7 @@ const SoftwareCard: React.FC<SoftwareCardProps> = ({ software, delay = 0 }) => {
             {software.platforms.map((platform) => (
               <Chip
                 key={platform}
-                icon={platformIcons[platform] as React.ReactElement}
+                icon={platformIcons[platform]}
                 label={PLATFORMS[platform]}
                 size="small"
                 variant="outlined"
