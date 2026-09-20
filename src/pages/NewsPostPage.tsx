@@ -132,10 +132,11 @@ const NewsPostPage: React.FC = () => {
             sx={{ 
               mb: 3,
               position: 'relative',
+              display: 'inline-block',
               '&:after': {
                 content: '""',
                 position: 'absolute',
-                width: '60px',
+                width: '100%',
                 height: '4px',
                 bottom: '-8px',
                 left: 0,

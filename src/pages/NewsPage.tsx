@@ -84,7 +84,7 @@ const NewsPage: React.FC = () => {
             '&:after': {
               content: '""',
               position: 'absolute',
-              width: '60%',
+              width: '100%',
               height: '4px',
               bottom: '-8px',
               left: 0,
