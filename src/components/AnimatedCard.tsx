@@ -12,6 +12,8 @@ interface AnimatedCardProps {
   link: string;
   tags?: string[];
   delay?: number;
+  /** Semantic heading level; keep under the parent section (home: h3 under h2, listing pages: h2 under h1). */
+  titleComponent?: 'h2' | 'h3';
 }
 
 const AnimatedCard: React.FC<AnimatedCardProps> = ({ 
@@ -21,7 +23,8 @@ const AnimatedCard: React.FC<AnimatedCardProps> = ({
   image, 
   link, 
   tags = [],
-  delay = 0 
+  delay = 0,
+  titleComponent = 'h3',
 }) => {
   return (
     <motion.div
@@ -61,7 +64,7 @@ const AnimatedCard: React.FC<AnimatedCardProps> = ({
         <CardContent sx={{ flexGrow: 1, p: 3 }}>
           <Typography 
             variant="h5" 
-            component="h2" 
+            component={titleComponent}
             gutterBottom
             sx={{
               fontWeight: 600,
