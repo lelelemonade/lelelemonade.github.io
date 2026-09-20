@@ -1,7 +1,7 @@
 {
   "name": "ZhongLi Shen",
   "short_name": "ZhongLi Shen",
-  "description": "Personal website of ZhongLi Shen - Software Engineer and Developer",
+  "description": "Personal website of ZhongLi Shen (沈仲黎), software engineer and developer. Blog posts, news, and a gallery of recommended open-source software.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
