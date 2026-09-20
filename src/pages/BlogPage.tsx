@@ -172,6 +172,7 @@ const BlogPage: React.FC = () => {
                   link={post.path}
                   tags={(post as any).tags}
                   delay={index}
+                  titleComponent="h2"
                 />
               </Grid>
             ))}

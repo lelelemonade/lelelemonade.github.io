@@ -152,7 +152,7 @@ const HomePage: React.FC = () => {
           
           {/* Skills Section */}
           <Box sx={{ mt: 6 }}>
-            <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>My Skills</Typography>
+            <Typography variant="h6" component="h3" gutterBottom sx={{ mb: 2 }}>My Skills</Typography>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {skills.map((skill, index) => (
                 <motion.div

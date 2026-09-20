@@ -83,7 +83,7 @@ const MainLayout: React.FC = () => {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography variant="h6" component="p" sx={{ my: 2 }}>
         ZhongLi Shen
       </Typography>
       <List>
