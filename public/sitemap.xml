@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  The site uses HashRouter, so every in-app route lives behind a fragment
-  (e.g. /#/blog) which crawlers ignore. Only the two real documents served by
-  GitHub Pages are listed here.
+  HashRouter routes live behind # fragments crawlers ignore.
+  Only documents GitHub Pages serves as real URLs are listed.
+  Regenerated on `pnpm build` with lastmod from newest blog/news date.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://zhongli.dev/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2025-04-20</lastmod>
   </url>
   <url>
     <loc>https://zhongli.dev/stickers.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
   </url>
 </urlset>
